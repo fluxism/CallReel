@@ -15,6 +15,7 @@ import androidx.annotation.Keep
 import com.kitsumed.shizucallrecorder.ILogCallback
 import com.kitsumed.shizucallrecorder.IRecordingCallback
 import com.kitsumed.shizucallrecorder.IShellService
+import com.kitsumed.shizucallrecorder.IVideoRecordingCallback
 import com.kitsumed.shizucallrecorder.data.recording.RecordingPlan
 import com.kitsumed.shizucallrecorder.services.shell.recording.ShellRecordingEngine
 import com.kitsumed.shizucallrecorder.services.shell.utils.ShellWorkarounds
@@ -102,6 +103,16 @@ class ShellService : IShellService.Stub {
     override fun resumeRecording() = clearIdentity {
         ensureInitialized()
         recordingEngine.resume()
+    }
+
+    override fun startVideoRecording(outputFile: ParcelFileDescriptor, callback: IVideoRecordingCallback): Boolean = clearIdentity {
+        ensureInitialized()
+        return recordingEngine.startVideo(outputFile, callback)
+    }
+
+    override fun stopVideoRecording(): Boolean = clearIdentity {
+        ensureInitialized()
+        return recordingEngine.stopVideo()
     }
 
     override fun grantAppOpByPackage(packageName: String, opName: String, userProfileId: Int): Boolean = clearIdentity {

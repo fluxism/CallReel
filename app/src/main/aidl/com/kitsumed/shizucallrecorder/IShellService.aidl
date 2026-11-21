@@ -3,6 +3,7 @@ package com.kitsumed.shizucallrecorder;
 import android.os.ParcelFileDescriptor;
 import com.kitsumed.shizucallrecorder.ILogCallback;
 import com.kitsumed.shizucallrecorder.IRecordingCallback;
+import com.kitsumed.shizucallrecorder.IVideoRecordingCallback;
 import com.kitsumed.shizucallrecorder.data.recording.RecordingPlan;
 
 interface IShellService {
@@ -75,6 +76,28 @@ interface IShellService {
      * @return True if the command was successful, false otherwise.
     */
     boolean grantRole(String packageName, String roleName, int userProfileId) = 8;
+
+    /**
+     * Starts recording the screen (with a copy of the call audio) into an MP4 file, next to the active recording session.
+     * Requires an active recording session started with startRecording(). Added by the ShizuVideoCallRecorder fork.
+     *
+     * The shell process takes ownership of the descriptor and closes it, also when this returns false.
+     *
+     * @param outputFile The writable (read-write) descriptor for the MP4 file.
+     * @param callback The callback interface for video recording events.
+     * @return True if the video recording started.
+     */
+    boolean startVideoRecording(
+        in ParcelFileDescriptor outputFile,
+        in IVideoRecordingCallback callback
+    ) = 9;
+
+    /**
+     * Stops the active video recording and finalizes its file. The audio recording continues.
+     *
+     * @return True if the file of the last video recording contains video. False if there is none or it is empty.
+     */
+    boolean stopVideoRecording() = 10;
 
     /**
      * Called by Shizuku when it wants to shut down this user service.

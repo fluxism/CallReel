@@ -12,12 +12,14 @@ import android.media.AudioRecord
 import android.os.ParcelFileDescriptor
 import android.os.Process
 import com.kitsumed.shizucallrecorder.IRecordingCallback
+import com.kitsumed.shizucallrecorder.IVideoRecordingCallback
 import com.kitsumed.shizucallrecorder.data.recording.RecordingFailure
 import com.kitsumed.shizucallrecorder.data.recording.RecordingPlan
 import com.kitsumed.shizucallrecorder.services.shell.recording.capture.IAudioCapture
 import com.kitsumed.shizucallrecorder.services.shell.recording.encoding.AudioEncoder
 import com.kitsumed.shizucallrecorder.services.shell.recording.processing.PcmProcessor
 import com.kitsumed.shizucallrecorder.services.shell.recording.processing.RecordingClock
+import com.kitsumed.shizucallrecorder.services.shell.recording.video.ShellVideoRecorder
 import com.kitsumed.shizucallrecorder.utils.AppLogger
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -75,6 +77,14 @@ class ShellRecordingEngine {
     private var encoder: AudioEncoder? = null
 
     private var recordingCallback: IRecordingCallback? = null
+
+    /** FORK: the optional video recording running next to the audio session. Read by the encoder thread. */
+    @Volatile
+    private var videoRecorder: ShellVideoRecorder? = null
+
+    /** FORK: whether the file of the last video recording contains video. */
+    @Volatile
+    private var lastVideoHadContent = false
 
     // Make the pool size 2 second worth of audio frames (blocks). Calculation is in milliseconds.
     private val poolSize: Int = (2_000L / AudioConfig.BLOCK_DURATION_MS).toInt()
@@ -328,6 +338,9 @@ class ShellRecordingEngine {
                 // The processor has already written the processed PCM data into the output buffer, so we just need to flip it to prepare for reading.
                 outputBuffer.flip()
 
+                // FORK: give a copy of the processed audio to the video recording, if any. This never blocks.
+                videoRecorder?.offerAudio(outputBuffer, frameCount)
+
                 encoder?.encode(
                     pcm = outputBuffer,
                     presentationTimeUs = presentationTimeUs
@@ -379,6 +392,7 @@ class ShellRecordingEngine {
                 return
             }
 
+            videoRecorder?.pause()
             AppLogger.i("Native recording session paused.")
         }
     }
@@ -395,6 +409,7 @@ class ShellRecordingEngine {
                 return
             }
 
+            videoRecorder?.resume()
             AppLogger.i("Native recording session resumed.")
         }
     }
@@ -412,6 +427,9 @@ class ShellRecordingEngine {
             }
 
             AppLogger.i("Stopping native recording session...")
+
+            // FORK: finalize the video first, while the audio it depends on is still flowing.
+            stopVideo()
 
             /*
              * Stop the audio captures first so blocking read() calls can return on the captureThread loop.
@@ -485,6 +503,69 @@ class ShellRecordingEngine {
 
             AppLogger.i("Native recording session stopped.")
         }
+    }
+
+    /**
+     * FORK: starts recording the screen into [outputFile], next to the active audio session.
+     *
+     * The video recording gets a copy of the processed audio and follows pause/resume. It never affects the audio session.
+     * This method takes ownership of [outputFile] and closes it, also on failure.
+     *
+     * @return true if the video recording started.
+     */
+    fun startVideo(outputFile: ParcelFileDescriptor, callback: IVideoRecordingCallback): Boolean {
+        synchronized(this) {
+            val plan = currentPlan
+            if (!recordingActive.get() || plan == null) {
+                AppLogger.w("startVideo() called without an active recording session.")
+                runCatching { outputFile.close() }
+                return false
+            }
+            if (videoRecorder != null) {
+                AppLogger.w("startVideo() called while a video recording is already active.")
+                runCatching { outputFile.close() }
+                return false
+            }
+
+            lastVideoHadContent = false
+            var recorder: ShellVideoRecorder? = null
+            recorder = ShellVideoRecorder(
+                outputFile = outputFile,
+                audioChannelCount = if (plan.isAudioChannelSplitEnabled) 2 else 1,
+                onFailure = { hasContent ->
+                    // Called from a video worker thread, after the recorder stopped itself.
+                    if (videoRecorder === recorder) videoRecorder = null
+                    lastVideoHadContent = hasContent
+                    runCatching { callback.onVideoRecordingFailure(hasContent) }.onFailure {
+                        AppLogger.w("Failed to deliver video failure callback.", it)
+                    }
+                }
+            )
+
+            return try {
+                recorder.start()
+                if (recordingPaused.get()) recorder.pause()
+                videoRecorder = recorder
+                true
+            } catch (t: Throwable) {
+                // Already logged and cleaned up by the recorder.
+                false
+            }
+        }
+    }
+
+    /**
+     * FORK: stops the active video recording, if any, and finalizes its file. The audio session continues.
+     *
+     * @return true if the file of the last video recording contains video.
+     */
+    fun stopVideo(): Boolean {
+        val recorder = videoRecorder
+        videoRecorder = null
+        if (recorder != null) {
+            lastVideoHadContent = recorder.stop()
+        }
+        return lastVideoHadContent
     }
 
     /**
