@@ -51,10 +51,12 @@ sealed class RecordingServiceState {
      * @param session The application-side recording session owner ([RecordingSession]) currently in progress.
      * @param isPaused Indicates whether the recording is currently paused.
      * @param metadata The metadata associated with the active recording session.
+     * @param isVideoRecording FORK: Indicates whether the screen is also being recorded as video.
      */
     data class Active(
         val session: RecordingSession,
         val isPaused: Boolean = false,
-        override val metadata: EnrichedCallData
+        override val metadata: EnrichedCallData,
+        val isVideoRecording: Boolean = false
     ) : RecordingServiceState()
 }

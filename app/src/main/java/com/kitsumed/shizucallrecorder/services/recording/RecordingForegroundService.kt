@@ -14,6 +14,7 @@ import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
+import android.telecom.TelecomManager
 import androidx.core.content.IntentCompat
 import androidx.documentfile.provider.DocumentFile
 import com.kitsumed.shizucallrecorder.IShellService
@@ -21,6 +22,10 @@ import com.kitsumed.shizucallrecorder.R
 import com.kitsumed.shizucallrecorder.data.AppPreferences
 import com.kitsumed.shizucallrecorder.data.call.EnrichedCallData
 import com.kitsumed.shizucallrecorder.data.recording.RecordingFailure
+import com.kitsumed.shizucallrecorder.data.recording.VideoRecordingSupport
+import com.kitsumed.shizucallrecorder.services.recording.video.CameraUseDetector
+import com.kitsumed.shizucallrecorder.services.recording.video.VideoTrigger
+import com.kitsumed.shizucallrecorder.services.recording.video.VideoTriggerPolicy
 import com.kitsumed.shizucallrecorder.integrations.shizuku.ShizukuConnectionManager
 import com.kitsumed.shizucallrecorder.utils.AppLogger
 import kotlinx.coroutines.CoroutineScope
@@ -65,6 +70,17 @@ class RecordingForegroundService : Service() {
 
         /** Intent action sent to this service when the user dismisses the notification (Android 14+). */
         const val ACTION_NOTIFICATION_DISMISSED = "com.kitsumed.shizucallrecorder.SERVICE_NOTIFICATION_DISMISSED"
+
+        // -- FORK: Intent actions for the video recording that can run next to an active recording session. --
+
+        /** Intent action sent by the notification's "Record video" button. */
+        const val ACTION_START_VIDEO = "com.kitsumed.shizucallrecorder.START_VIDEO"
+
+        /** Intent action sent by the notification's "Stop video" button. */
+        const val ACTION_STOP_VIDEO = "com.kitsumed.shizucallrecorder.STOP_VIDEO"
+
+        /** Intent action sent by the call detection when the current call is reported as a video call. */
+        const val ACTION_VIDEO_CALL_DETECTED = "com.kitsumed.shizucallrecorder.VIDEO_CALL_DETECTED"
     }
 
     // ── Dependencies ──────────────────────────────────────────────────────────
@@ -76,6 +92,17 @@ class RecordingForegroundService : Service() {
     private lateinit var notificationHelper: RecordingNotificationHelper
 
     private lateinit var overlayController: RecordingOverlayController
+
+    // ── FORK: video recording ─────────────────────────────────────────────────
+
+    /** Watches the cameras while a session is active, as a hint that the call is a video call. */
+    private lateinit var cameraUseDetector: CameraUseDetector
+
+    /** True once the call detection reported the current call as a video call. Kept until a session can act on it. */
+    private var isVideoCallDetected = false
+
+    /** True once the user stopped the video by hand in this call. Automatic triggers then stay quiet. */
+    private var wasVideoStoppedByUser = false
 
     /** IPC stub to the privileged ShellService running in the shell process. */
     private var shellService: IShellService? = null
@@ -101,6 +128,7 @@ class RecordingForegroundService : Service() {
 
         appPreferences = AppPreferences(this)
         recordingPlanResolver = RecordingPlanResolver(this)
+        cameraUseDetector = CameraUseDetector(this) { requestVideo(VideoTrigger.CAMERA) }
 
         // Launch a collector to do actions on the service state changes
         serviceScope.launch(Dispatchers.Main.immediate) { // Use immediate to ensure we get the initial (oldState) value on launch
@@ -156,6 +184,7 @@ class RecordingForegroundService : Service() {
             )
             if (newMetadata != null) {
                 currentMeta = newMetadata
+                if (newMetadata.isVideoCall) isVideoCallDetected = true
             }
         }
 
@@ -244,6 +273,24 @@ class RecordingForegroundService : Service() {
                         currentState.copy(isPaused = false)
                     } else {
                         currentState
+                    }
+                }
+            }
+
+            // FORK: video actions. They only make sense for a call this service already knows about; a stale
+            // notification button or a late event must not leave a fresh service running.
+            ACTION_START_VIDEO, ACTION_STOP_VIDEO, ACTION_VIDEO_CALL_DETECTED -> {
+                if (!state.isRecordingActive && !state.isStarting && state.metadata == null) {
+                    AppLogger.d("Video action '$action' received without a known call. Ignoring.")
+                    stopRecordingSessionAndService()
+                    return START_NOT_STICKY
+                }
+                when (action) {
+                    ACTION_START_VIDEO -> requestVideo(VideoTrigger.MANUAL)
+                    ACTION_STOP_VIDEO -> stopVideo(byUser = true)
+                    else -> {
+                        isVideoCallDetected = true
+                        requestVideo(VideoTrigger.TELECOM)
                     }
                 }
             }
@@ -341,12 +388,95 @@ class RecordingForegroundService : Service() {
         }
 
         AppLogger.i("The recording session has been started successfully. Service state updated to Active.")
+
+        // FORK: now that audio is recording, video can follow.
+        if (VideoRecordingSupport.isEnabled(appPreferences)) {
+            // Reports right away if a camera is already in use.
+            cameraUseDetector.start()
+            if (isVideoCallDetected) requestVideo(VideoTrigger.TELECOM)
+        }
+    }
+
+    // ── FORK: video recording logic ───────────────────────────────────────
+
+    /**
+     * Starts the video recording for the active session if [VideoTriggerPolicy] allows it for this [trigger].
+     * Must be called on the main thread. Does nothing without an active session.
+     */
+    private fun requestVideo(trigger: VideoTrigger) {
+        val state = _serviceState.value as? RecordingServiceState.Active
+        if (state == null) {
+            AppLogger.d("Video trigger $trigger ignored: no active recording session.")
+            return
+        }
+
+        val telecomManager = getSystemService(TelecomManager::class.java)
+        val isAppOrVoipCall = VideoTriggerPolicy.isAppOrVoipCall(
+            isCallAudioVoIpBased = state.metadata.isCallAudioVoIpBased,
+            callPackageName = state.metadata.packageName,
+            dialerPackageNames = listOf(telecomManager?.systemDialerPackage, telecomManager?.defaultDialerPackage)
+        )
+
+        val shouldStart = VideoTriggerPolicy.shouldStartVideo(
+            trigger = trigger,
+            isFeatureEnabled = VideoRecordingSupport.isEnabled(appPreferences),
+            isVideoRecording = state.isVideoRecording,
+            wasStoppedByUser = wasVideoStoppedByUser,
+            isAppOrVoipCall = isAppOrVoipCall
+        )
+        if (!shouldStart) {
+            AppLogger.d("Video trigger $trigger did not start video. isVideoRecording=${state.isVideoRecording}, wasStoppedByUser=$wasVideoStoppedByUser, isAppOrVoipCall=$isAppOrVoipCall")
+            return
+        }
+
+        AppLogger.i("Starting video recording. Trigger: $trigger")
+        val started = state.session.startVideo { hasContent ->
+            // Reported from a binder thread.
+            serviceScope.launch(Dispatchers.Main) { onVideoFailed(hasContent) }
+        }
+
+        if (started) {
+            if (trigger == VideoTrigger.MANUAL) wasVideoStoppedByUser = false
+            _serviceState.update { (it as? RecordingServiceState.Active)?.copy(isVideoRecording = true) ?: it }
+        } else {
+            notificationHelper.showErrorNotification(getString(R.string.recording_error_video_failed))
+        }
+    }
+
+    /**
+     * Stops the video recording of the active session, if any. The audio recording continues.
+     *
+     * @param byUser True when the user asked for it; automatic triggers then no longer restart video in this call.
+     */
+    private fun stopVideo(byUser: Boolean) {
+        val state = _serviceState.value as? RecordingServiceState.Active ?: return
+        if (!state.isVideoRecording) return
+
+        if (byUser) wasVideoStoppedByUser = true
+        state.session.stopVideo()
+        _serviceState.update { (it as? RecordingServiceState.Active)?.copy(isVideoRecording = false) ?: it }
+    }
+
+    /**
+     * Handles a video recording that failed after it started. The audio recording is left alone.
+     */
+    private fun onVideoFailed(hasContent: Boolean) {
+        AppLogger.w("The video recording failed. hasContent=$hasContent. The audio recording continues.")
+        // Do not let the camera immediately restart a recording that just failed.
+        wasVideoStoppedByUser = true
+        _serviceState.update { (it as? RecordingServiceState.Active)?.copy(isVideoRecording = false) ?: it }
+        notificationHelper.showErrorNotification(getString(R.string.recording_error_video_failed))
     }
 
     /**
      * Stops the current recording session (if any) and stops the foreground service.
      */
     private fun stopRecordingSessionAndService() {
+        // FORK: the call is over for this service, so forget everything about its video.
+        cameraUseDetector.stop()
+        isVideoCallDetected = false
+        wasVideoStoppedByUser = false
+
         val activeSession = (_serviceState.value as? RecordingServiceState.Active)?.session
 
         if (activeSession == null) {

@@ -13,8 +13,8 @@
     <string name="general_outgoing">Realizadas</string>
     <string name="general_reset">Redefinir</string>
     <string name="general_system_limitation">Limitação do sistema</string>
-    <string name="general_system_limitation_message">ShizuCallRecorder não funcionará neste dispositivo porque a sua aplicação de shell não tem as permissões necessárias:\n\n%1$s\n\nNão há nada que possa fazer sobre isto, a app não funciona e será fechado agora.</string>
-    <string name="disclaimer_title">Bem-vindo ao ShizuCallRecorder</string>
+    <string name="general_system_limitation_message">ShizuVideoCallRecorder não funcionará neste dispositivo porque a sua aplicação de shell não tem as permissões necessárias:\n\n%1$s\n\nNão há nada que possa fazer sobre isto, a app não funciona e será fechado agora.</string>
+    <string name="disclaimer_title">Bem-vindo ao ShizuVideoCallRecorder</string>
     <string name="disclaimer_wiki_link_KEYWORD">Wikipédia</string>
     <string name="disclaimer_introduction">Abra e leia as instruções de configuração no nosso Wiki antes de continuar. Depois, leia o aviso abaixo.</string>
     <string name="disclaimer_checkbox_label">Li o aviso legal e compreendo os requisitos legais, responsabilidades e limitações técnicas deste software.</string>

@@ -13,8 +13,8 @@
     <string name="general_outgoing">صادر</string>
     <string name="general_reset">إعادة تعيين</string>
     <string name="general_system_limitation">قيود النظام</string>
-    <string name="general_system_limitation_message">لن يعمل تطبيق ShizuCallRecorder على هذا الجهاز لأن تطبيق الصَدَفة (Shell) الخاص بك لا يملك الأذونات المطلوبة:\n\n%1$s\n\nلا يمكنك فعل أي شيء حيال ذلك، فالتطبيق لا يمكنه العمل وسيتم إغلاقه الآن.</string>
-    <string name="disclaimer_title">أهلاً بك في تطبيق ShizuCallRecorder</string>
+    <string name="general_system_limitation_message">لن يعمل تطبيق ShizuVideoCallRecorder على هذا الجهاز لأن تطبيق الصَدَفة (Shell) الخاص بك لا يملك الأذونات المطلوبة:\n\n%1$s\n\nلا يمكنك فعل أي شيء حيال ذلك، فالتطبيق لا يمكنه العمل وسيتم إغلاقه الآن.</string>
+    <string name="disclaimer_title">أهلاً بك في تطبيق ShizuVideoCallRecorder</string>
     <string name="disclaimer_introduction">يرجى فتح وقراءة تعليمات الإعداد على صفحة الويكي (Wiki) الخاصة بنا قبل المتابعة. ثم اقرأ إخلاء المسؤولية أدناه.</string>
     <string name="disclaimer_checkbox_label">لقد قرأت إخلاء المسؤولية وأفهم المتطلبات القانونية، والمسؤوليات، والقيود التقنية لهذا البرنامج.</string>
     <string name="disclaimer_wait">انتظر %1$ds</string>

@@ -46,6 +46,7 @@ class AppPreferences(context: Context) {
         const val VIBRATION_ENABLED = true
         val CALL_DETECTION_MODE = CallDetectionMode.getDefaultModeForDevice().key
         const val RECORD_THIRD_PARTY_CALLS = false
+        const val VIDEO_RECORDING_ENABLED = false // FORK: video call recording
 
         const val POST_RECORDING_FILE_ACTIONS_NOTIFICATION_ENABLED = false
         const val AUTO_RECORD_INCOMING = false
@@ -131,7 +132,8 @@ class AppPreferences(context: Context) {
         SHIZUKU_KEEP_ALIVE("shizuku_keep_alive"),
         SHIZUKU_AUTH_KEY("shizuku_auth_key"),
         CALL_DETECTION_MODE("call_detection_mode"),
-        RECORD_THIRD_PARTY_CALLS("record_third_party_calls");
+        RECORD_THIRD_PARTY_CALLS("record_third_party_calls"),
+        VIDEO_RECORDING_ENABLED("video_recording_enabled"); // FORK: video call recording
     }
 
     // -------- Nested enums
@@ -286,6 +288,11 @@ class AppPreferences(context: Context) {
     fun isRecordThirdPartyCallsEnabled() = getBoolean(Key.RECORD_THIRD_PARTY_CALLS, DefaultsValue.RECORD_THIRD_PARTY_CALLS)
     /** Sets whether recording of calls from third-party apps is enabled. */
     fun setRecordThirdPartyCallsEnabled(enabled: Boolean) = setBoolean(Key.RECORD_THIRD_PARTY_CALLS, enabled)
+
+    /** FORK: Returns true if the screen should also be recorded when a recorded call is a video call. */
+    fun isVideoRecordingEnabled() = getBoolean(Key.VIDEO_RECORDING_ENABLED, DefaultsValue.VIDEO_RECORDING_ENABLED)
+
+    fun setVideoRecordingEnabled(enabled: Boolean) = setBoolean(Key.VIDEO_RECORDING_ENABLED, enabled)
 
     // -------- Automation --------
 

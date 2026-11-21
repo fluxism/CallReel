@@ -59,6 +59,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.kitsumed.shizucallrecorder.AppUrls
 import com.kitsumed.shizucallrecorder.R
 import com.kitsumed.shizucallrecorder.data.AppPreferences
 import com.kitsumed.shizucallrecorder.services.callDetection.CallDetectionMode
@@ -89,6 +90,7 @@ import androidx.core.net.toUri
 import com.kitsumed.shizucallrecorder.data.recording.CapturePlan
 import com.kitsumed.shizucallrecorder.data.recording.RecordingCodec
 import com.kitsumed.shizucallrecorder.data.recording.RecordingSource
+import com.kitsumed.shizucallrecorder.data.recording.VideoRecordingSupport
 import com.mikepenz.aboutlibraries.ui.compose.style.LibraryActionBadges
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryActionMode
@@ -248,6 +250,14 @@ private fun AboutSection(versionString: String) {
     SettingsSection(title = stringResource(R.string.settings_section_about)) {
         ListItem(
             headlineContent = { Text(versionString) },
+            colors = ListItemDefaults.colors(containerColor = Color.Transparent)
+        )
+        // FORK: the upstream licence (additional terms 3 and 4) requires a visible fork notice linking to the original project.
+        ListItem(
+            modifier = Modifier
+                .clickable { context.startActivity(Intent(Intent.ACTION_VIEW, AppUrls.UPSTREAM_REPOSITORY.toUri()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
+                .semantics(mergeDescendants = true) {},
+            headlineContent = { Text(stringResource(R.string.about_fork_notice), style = MaterialTheme.typography.bodyMedium) },
             colors = ListItemDefaults.colors(containerColor = Color.Transparent)
         )
         Row(
@@ -553,6 +563,7 @@ private fun RecordingSection(
     val recordingFolderLabel = remember(updateTrigger) { SafHelper.getFolderDisplayNameOrNull(context, preferences.getRecordingFolderUri()) }
     val callDetectionMode = remember(updateTrigger) { preferences.getCallDetectionMode() }
     val recordThirdPartyCalls = remember(updateTrigger) { preferences.isRecordThirdPartyCallsEnabled() }
+    val videoRecordingEnabled = remember(updateTrigger) { preferences.isVideoRecordingEnabled() }
     val fileNameFormat = remember(updateTrigger) { preferences.getFileNameTemplate() }
     val postRecordingFileNotifications = remember(updateTrigger) { preferences.isPostRecordingFileActionsNotificationEnabled() }
     val isVibrationEnabled = remember(updateTrigger) { preferences.isVibrationEnabled() }
@@ -618,6 +629,16 @@ private fun RecordingSection(
                 }
                 //CallDetectionMode.NotificationListener -> {} // TODO: Add comment?
             }
+        }
+
+        // FORK: video call recording. Hidden where the device cannot do it.
+        if (VideoRecordingSupport.isSupported) {
+            ToggleListItem(
+                label           = stringResource(R.string.settings_video_recording),
+                description     = stringResource(R.string.settings_video_recording_description),
+                checked         = videoRecordingEnabled,
+                onCheckedChange = { actions.setVideoRecordingEnabled(it) }
+            )
         }
 
         HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp), thickness = 0.5.dp)
@@ -1276,6 +1297,7 @@ private fun SettingsScreenPreview() {
             override fun setFileNameTemplate(template: String) {}
             override fun setCallDetectionMode(mode: CallDetectionMode) {}
             override fun setRecordThirdPartyCalls(enabled: Boolean) {}
+            override fun setVideoRecordingEnabled(enabled: Boolean) {}
             override fun setPostRecordingFileNotification(enabled: Boolean) {}
             override fun setOverlayEnabled(enabled: Boolean) {}
             override fun setPlaybackCaptureAllowed(enabled: Boolean) {}

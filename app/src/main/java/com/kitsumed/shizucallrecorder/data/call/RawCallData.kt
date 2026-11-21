@@ -19,6 +19,7 @@ import kotlinx.parcelize.Parcelize
  * @param osProvidedCallerName An optional contact/caller name provided by the OS, if any.
  * @param packageName An optional package name of the app associated with the call, if any. This can be used for special handling of calls from specific apps.
  * @param isCallAudioVoIpBased A boolean indicating whether the call audio is VoIP-based or not. This can be used to determine if special handling is needed for VoIP calls.
+ * @param isVideoCall FORK: whether the OS reported the call as a video call when it became active.
  */
 @Parcelize
 data class RawCallData(
@@ -26,6 +27,7 @@ data class RawCallData(
     val direction: CallDirection,
     val osProvidedCallerName: String? = null,
     val packageName: String? = null,
-    val isCallAudioVoIpBased: Boolean = false
+    val isCallAudioVoIpBased: Boolean = false,
+    val isVideoCall: Boolean = false
 ) : Parcelable
 

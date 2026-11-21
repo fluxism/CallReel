@@ -61,12 +61,13 @@ android {
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.kitsumed.shizucallrecorder"
+        // FORK: the upstream licence (additional term 3) requires a different package ID. The code namespace is unchanged.
+        applicationId = "com.fluxism.shizuvideocallrecorder"
         minSdk = 30
         targetSdk = 37
         // Keep theses two values hard-coded here and update them per version. (To keep F-Droid compatibility since their parser is very basic)
         versionCode = 20
-        versionName = "2.0.0"
+        versionName = "2.0.0-video.1"
     }
     signingConfigs {
         // Signing config for CI environments.
@@ -205,4 +206,7 @@ dependencies {
      * At runtime, the Android classloader prioritizes real framework classes of the OS, these stubs will not be part of the final APK.
      */
     compileOnly(project(":android-framework-hidden-stubs"))
+
+    // Unit tests (JVM only)
+    testImplementation(libs.junit)
 }

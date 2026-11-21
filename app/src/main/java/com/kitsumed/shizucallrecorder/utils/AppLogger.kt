@@ -40,6 +40,9 @@ import java.util.Locale
  * Also serves as an IPC bridge for receiving logs from the ShellService process via AIDL callbacks.
  */
 object AppLogger {
+    /** Root package of the app code. Differs from the application ID in this fork. */
+    private const val CODE_PACKAGE_PREFIX = "com.kitsumed.shizucallrecorder"
+
 
 
 
@@ -133,7 +136,8 @@ object AppLogger {
             val className = element.className
             if (className == loggerClassName) continue // Skip AppLogger itself
             // The first class in the stack from our app
-            if (className.startsWith(BuildConfig.APPLICATION_ID)) {
+            // FORK: the application ID no longer matches the code package, so match on the package of this class tree instead.
+            if (className.startsWith(CODE_PACKAGE_PREFIX)) {
                 return formatTag(formatClassName(className))
             }
         }

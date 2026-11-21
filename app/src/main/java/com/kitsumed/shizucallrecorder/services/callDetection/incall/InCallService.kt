@@ -12,12 +12,15 @@ import android.os.Build
 import android.telecom.Call
 import android.telecom.Connection
 import android.telecom.InCallService
+import android.content.Intent
 import android.telecom.TelecomManager
+import android.telecom.VideoProfile
 import androidx.annotation.RequiresApi
 import com.kitsumed.shizucallrecorder.data.AppPreferences
 import com.kitsumed.shizucallrecorder.data.call.CallDirection
 import com.kitsumed.shizucallrecorder.data.call.RawCallData
 import com.kitsumed.shizucallrecorder.services.RecordingDecisionEngine
+import com.kitsumed.shizucallrecorder.services.recording.RecordingForegroundService
 import com.kitsumed.shizucallrecorder.utils.AppLogger
 import com.kitsumed.shizucallrecorder.utils.PhoneNumberManager
 import kotlinx.coroutines.CoroutineScope
@@ -54,11 +57,18 @@ class InCallService : InCallService() {
     private var activeTrackedCall: Call? = null
     /** Flag to ensure the [RecordingDecisionEngine] pipeline is only executed once per call session.*/
     private var isPipelineExecuted = false
+    /** FORK: Flag to tell the recording service only once per call that the call is a video call. */
+    private var isVideoCallReported = false
 
     // Callback reference used to safely manage the listener lifespan
     private val callCallback = object : Call.Callback() {
         override fun onStateChanged(call: Call, state: Int) {
             handleCallStateChanged(call, state)
+        }
+
+        // FORK: a call can turn into a video call after it was answered.
+        override fun onDetailsChanged(call: Call, details: Call.Details) {
+            handleCallDetailsChanged(call, details)
         }
     }
 
@@ -165,7 +175,10 @@ class InCallService : InCallService() {
             val isSelfManaged = details.hasProperty(Call.Details.PROPERTY_SELF_MANAGED)
             val isVoip = details.hasProperty(Call.Details.PROPERTY_VOIP_AUDIO_MODE) // VoIP means audio is routed outside MediaRecorder, we must use AudioPlayback.
             val isWifiCall = details.hasProperty(Call.Details.PROPERTY_WIFI)
-            AppLogger.d( "Primary call details - isSelfManaged: $isSelfManaged, isVoip: $isVoip, isWifiCall: $isWifiCall")
+            // FORK: third-party apps may or may not report their video state to Telecom. When they do, we can record the video.
+            val isVideoCall = VideoProfile.isVideo(details.videoState)
+            isVideoCallReported = isVideoCall
+            AppLogger.d( "Primary call details - isSelfManaged: $isSelfManaged, isVoip: $isVoip, isWifiCall: $isWifiCall, isVideoCall: $isVideoCall (videoState=${details.videoState})")
 
 
             val rawCallData = RawCallData(
@@ -174,6 +187,7 @@ class InCallService : InCallService() {
                 osProvidedCallerName = osCallerName,
                 packageName = packageName,
                 isCallAudioVoIpBased = isVoip || isWifiCall, // Wi-Fi call also uses the same audio logic as VoIP. issue #136
+                isVideoCall = isVideoCall,
             )
 
             serviceScope.launch {
@@ -186,6 +200,23 @@ class InCallService : InCallService() {
                 }
             }
         }
+    }
+
+    /**
+     * FORK: Tells the recording service when the tracked call becomes a video call after it was answered
+     * (for example when the user turns the camera on during a voice call).
+     */
+    private fun handleCallDetailsChanged(call: Call, details: Call.Details) {
+        if (call != activeTrackedCall || !isPipelineExecuted || isVideoCallReported) return
+        if (!VideoProfile.isVideo(details.videoState)) return
+
+        isVideoCallReported = true
+        AppLogger.i( "Primary call became a video call (videoState=${details.videoState}). Notifying the recording service.")
+        runCatching {
+            startService(Intent(this, RecordingForegroundService::class.java).apply {
+                action = RecordingForegroundService.ACTION_VIDEO_CALL_DETECTED
+            })
+        }.onFailure { AppLogger.w( "Failed to notify the recording service about the video call.", it) }
     }
 
     /**
@@ -205,6 +236,7 @@ class InCallService : InCallService() {
 
         // Flush the object reference to fully accept new calls down the road
         activeTrackedCall = null
+        isVideoCallReported = false
     }
 
     /**

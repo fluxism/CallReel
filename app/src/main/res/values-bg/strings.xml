@@ -17,9 +17,9 @@
     <string name="general_delete">Изтриване</string>
     <string name="general_deleted">Изтрито</string>
     <string name="general_system_limitation">Системно ограничение</string>
-    <string name="general_system_limitation_message">ShizuCallRecorder няма да работи на това устройство, тъй като shell приложението не разполага с нужните разрешения:\n\n%1$s\n\nТози проблем е нерешим – приложението не може да работи и ще се затвори.</string>
+    <string name="general_system_limitation_message">ShizuVideoCallRecorder няма да работи на това устройство, тъй като shell приложението не разполага с нужните разрешения:\n\n%1$s\n\nТози проблем е нерешим – приложението не може да работи и ще се затвори.</string>
     <string name="general_permission_escalation_exhausted">Неуспешно получаване на разрешение \'%1$s\' permission \'%2$s\'.\nВсички стъпки за ескалация (%3$d) са изчерпани.\n\nУверете се, че Shizuku работи, тъй като е възможно това да е причината.\n\nСъщо така е възможно вашият OEM активно да блокира или отменя всички промени на разрешения. Проверете в настройките на телефона дали няма възможност това поведение да бъде деактивирано.\n\nУстройствата от Vivo, Oppo, Xiaomi и други китайски производители често включват агресивни системни ограничения, които напълно блокират достъпа до това разрешение.\n\nАко откриете начин да си дадете това разрешение ръчно чрез ADB, моля докладвайте ни го чрез създаване на issue в GitHub!</string>
-    <string name="disclaimer_title">Добре дошли в ShizuCallRecorder</string>
+    <string name="disclaimer_title">Добре дошли в ShizuVideoCallRecorder</string>
     <string name="disclaimer_wiki_link_KEYWORD">Уики</string>
     <string name="disclaimer_introduction">Отворете и прочетете инструкциите за настройка в нашето Уики, преди да продължите. След това прочете отказа от отговорност по-долу.</string>
     <string name="disclaimer_checkbox_label">Прочетох отказа от отговорност и разбрах законовите изисвания, отговорности и технически ограничения на този софтуер.</string>

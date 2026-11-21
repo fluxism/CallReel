@@ -29,6 +29,7 @@ import androidx.core.app.NotificationCompat
 import com.kitsumed.shizucallrecorder.R
 import com.kitsumed.shizucallrecorder.data.AppPreferences
 import com.kitsumed.shizucallrecorder.data.call.EnrichedCallData
+import com.kitsumed.shizucallrecorder.data.recording.VideoRecordingSupport
 import com.kitsumed.shizucallrecorder.utils.RecordingFileNameFormatter
 import com.kitsumed.shizucallrecorder.ui.theme.Green40
 
@@ -129,7 +130,7 @@ class RecordingNotificationHelper(private val context: Context) {
                     actionText = context.getString(R.string.general_resume)
                     actionIntentAction = RecordingForegroundService.ACTION_RESUME_RECORDING
                 } else {
-                    titleRes = R.string.recording_notification_title
+                    titleRes = if (state.isVideoRecording) R.string.recording_notification_title_video else R.string.recording_notification_title
                     contentRes = R.string.recording_notification_press_to_pause
                     actionIcon = R.drawable.ic_mic
                     actionText = context.getString(R.string.general_pause)
@@ -182,6 +183,23 @@ class RecordingNotificationHelper(private val context: Context) {
             builder.addAction(actionIcon, actionText, actionPendingIntent)
         }
 
+        // FORK: second action to start or stop the video by hand, while a recording is active.
+        if (state is RecordingServiceState.Active && VideoRecordingSupport.isEnabled(AppPreferences(context))) {
+            val isVideoRecording = state.isVideoRecording
+            val videoPendingIntent = PendingIntent.getService(
+                context, 2,
+                Intent(context, RecordingForegroundService::class.java).apply {
+                    action = if (isVideoRecording) RecordingForegroundService.ACTION_STOP_VIDEO else RecordingForegroundService.ACTION_START_VIDEO
+                },
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+            builder.addAction(
+                if (isVideoRecording) R.drawable.ic_videocam_off else R.drawable.ic_videocam,
+                context.getString(if (isVideoRecording) R.string.general_stop_video else R.string.general_record_video),
+                videoPendingIntent
+            )
+        }
+
         return builder.build()
     }
 
@@ -205,6 +223,12 @@ class RecordingNotificationHelper(private val context: Context) {
             }
 
             is RecordingServiceState.Active -> {
+                // FORK: a change of the video state alone must not be announced as a new recording.
+                if (oldState is RecordingServiceState.Active && oldState.isVideoRecording != newState.isVideoRecording) {
+                    showToast(context.getString(if (newState.isVideoRecording) R.string.recording_toast_video_started else R.string.recording_toast_video_stopped))
+                    return
+                }
+
                 val wasActiveAndPaused = oldState.isRecordingPaused
 
                 if (newState.isPaused && !wasActiveAndPaused) {

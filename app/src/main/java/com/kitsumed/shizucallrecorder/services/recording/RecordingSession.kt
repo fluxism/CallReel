@@ -15,6 +15,7 @@ import android.os.ParcelFileDescriptor
 import androidx.documentfile.provider.DocumentFile
 import com.kitsumed.shizucallrecorder.IRecordingCallback
 import com.kitsumed.shizucallrecorder.IShellService
+import com.kitsumed.shizucallrecorder.IVideoRecordingCallback
 import com.kitsumed.shizucallrecorder.R
 import com.kitsumed.shizucallrecorder.data.AppPreferences
 import com.kitsumed.shizucallrecorder.data.call.EnrichedCallData
@@ -23,6 +24,7 @@ import com.kitsumed.shizucallrecorder.data.recording.RecordingPlan
 import com.kitsumed.shizucallrecorder.system.storage.SafHelper
 import com.kitsumed.shizucallrecorder.utils.AppLogger
 import com.kitsumed.shizucallrecorder.utils.RecordingFileNameFormatter
+import com.kitsumed.shizucallrecorder.utils.VideoFileNameFormatter
 
 /**
  * Application-side owner of a single recording session.
@@ -78,6 +80,34 @@ class RecordingSession(
     var currentRecordingUri: Uri? = null
         private set // Prevent modification from outside the class.
 
+    // ---- FORK: video recording state
+
+    /** The name of the audio file, sub-folders included. The video file is named after it. */
+    private val audioFileName: String
+
+    /** The URI of the current (or last) video file of this session, or null if video was never started. */
+    var currentVideoUri: Uri? = null
+        private set
+
+    /** True while the remote recording engine is recording video for this session. */
+    @Volatile
+    var isVideoActive: Boolean = false
+        private set
+
+    /** Called (from a binder thread) when the video recording fails after it started. */
+    @Volatile
+    private var videoFailureListener: ((hasContent: Boolean) -> Unit)? = null
+
+    private val videoCallback = object : IVideoRecordingCallback.Stub() {
+        override fun onVideoRecordingFailure(hasContent: Boolean) {
+            AppLogger.e("Remote recording engine reported a video recording failure. hasContent=$hasContent")
+            if (!isVideoActive) return // Already stopped on our side.
+            isVideoActive = false
+            if (!hasContent) deleteVideoFile()
+            videoFailureListener?.invoke(hasContent)
+        }
+    }
+
     /**
      * The ParcelFileDescriptor for the current recording file, or null if no recording is active.
      *
@@ -126,6 +156,8 @@ class RecordingSession(
             initializationMetadata,
             plan.codec
         )
+
+        audioFileName = fileName
 
         val safResult = SafHelper.createAudioFile(
             context,
@@ -180,6 +212,9 @@ class RecordingSession(
      * **This method should be called when the recording session is no longer needed.**
      */
     fun release() {
+        // FORK: stop the video first, so we learn whether its file is worth keeping.
+        stopVideo()
+
         runCatching {
             shellService?.stopRecording()
         }
@@ -194,6 +229,83 @@ class RecordingSession(
 
         shellService = null
         outputPfd = null
+    }
+
+    /**
+     * FORK: Starts recording the screen into an MP4 file next to the audio file of this session.
+     *
+     * The video never affects the audio recording: when it cannot start, this returns false and nothing else changes.
+     *
+     * @param onFailure Called from a binder thread if the video recording fails later. The argument tells whether the file was kept.
+     * @return true if the video recording is running (also when it already was).
+     */
+    fun startVideo(onFailure: (hasContent: Boolean) -> Unit): Boolean {
+        val service = shellService ?: return false
+        if (isVideoActive) return true
+
+        val folderUri = AppPreferences(context).getRecordingFolderUri()
+        if (!SafHelper.isFolderValid(context, folderUri)) {
+            AppLogger.e("Cannot start video recording: the output folder is missing, invalid, or inaccessible.")
+            return false
+        }
+
+        val videoFileName = VideoFileNameFormatter.fromAudioFileName(audioFileName, plan.codec.containerExtension)
+        val safResult = SafHelper.createAudioFile(context, folderUri, videoFileName, VideoFileNameFormatter.MIME_TYPE)
+        if (safResult == null) {
+            AppLogger.e("Cannot start video recording: failed to create the video file in SAF storage.")
+            return false
+        }
+        currentVideoUri = safResult.uri
+        videoFailureListener = onFailure
+
+        val started = try {
+            service.startVideoRecording(safResult.descriptor, videoCallback)
+        } catch (e: Exception) {
+            AppLogger.e("Binder IPC failure (${e.javaClass.simpleName}) while calling startVideoRecording().", e)
+            false
+        } finally {
+            // The shell process received its own duplicate of the descriptor, ours is no longer needed.
+            runCatching { safResult.descriptor.close() }
+        }
+
+        if (!started) {
+            AppLogger.e("The remote recording engine could not start the video recording.")
+            deleteVideoFile()
+            return false
+        }
+
+        isVideoActive = true
+        AppLogger.i("Video recording started for this session.")
+        return true
+    }
+
+    /**
+     * FORK: Stops the video recording of this session, if any. The audio recording continues.
+     * A video file without any video in it is deleted.
+     */
+    fun stopVideo() {
+        if (!isVideoActive) return
+        isVideoActive = false
+
+        val hasContent = try {
+            shellService?.stopVideoRecording() == true
+        } catch (e: Exception) {
+            // We cannot know, so keep the file rather than risk deleting a good one.
+            AppLogger.w("Binder IPC failure (${e.javaClass.simpleName}) while calling stopVideoRecording(). Keeping the video file.", e)
+            true
+        }
+
+        AppLogger.i("Video recording stopped for this session. hasContent=$hasContent")
+        if (!hasContent) deleteVideoFile()
+    }
+
+    private fun deleteVideoFile() {
+        val uri = currentVideoUri ?: return
+        currentVideoUri = null
+        AppLogger.i("Deleting the empty video file.")
+        runCatching { DocumentFile.fromSingleUri(context, uri)?.delete() }.onFailure {
+            AppLogger.w("Failed to delete the empty video file.", it)
+        }
     }
 
     /**

@@ -1,4 +1,12 @@
-# ShizuCallRecorder
+# ShizuVideoCallRecorder
+
+> [!IMPORTANT]
+> **This is a FORK.** This software is a fork of ShizuCallRecorder, available at https://github.com/kitsumed/ShizuCallRecorder.
+> It is not the original project and is not affiliated with or endorsed by its author. It adds **video call recording**:
+> when a recorded call is a video call, the screen is also recorded into an MP4 file next to the audio file.
+> It installs under its own package ID (`com.fluxism.shizuvideocallrecorder`). The badges, download links, documentation
+> and the rest of this README below come from the original project and describe it.
+
 [![GitHub Repo stars](https://img.shields.io/github/stars/kitsumed/ShizuCallRecorder?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI%2BPHRpdGxlPnN0YXI8L3RpdGxlPjxwYXRoIGQ9Ik0xMiwxNy4yN0wxOC4xOCwyMUwxNi41NCwxMy45N0wyMiw5LjI0TDE0LjgxLDguNjJMMTIsMkw5LjE5LDguNjJMMiw5LjI0TDcuNDUsMTMuOTdMNS44MiwyMUwxMiwxNy4yN1oiIGZpbGw9IndoaXRlIiAvPjwvc3ZnPg%3D%3D&labelColor=gray&color=gold)](https://github.com/kitsumed/ShizuCallRecorder/graphs/traffic)
 [![Download ShizuCallRecorder on Github - All Downloads Stats](https://img.shields.io/github/downloads/kitsumed/ShizuCallRecorder/total?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI%2BPHRpdGxlPmRvd25sb2FkPC90aXRsZT48cGF0aCBkPSJNNSwyMEgxOVYxOEg1TTE5LDlIMTVWM0g5VjlINUwxMiwxNkwxOSw5WiIgZmlsbD0id2hpdGUiIC8%2BPC9zdmc%2B&label=Downloads&labelColor=gray&color=gold&)](https://github.com/kitsumed/ShizuCallRecorder/releases/)
 [![GitHub Release](https://img.shields.io/github/v/release/kitsumed/ShizuCallRecorder?sort=semver&display_name=tag&style=for-the-badge&logo=testcafe&logoColor=white&label=Latest%20Release&labelColor=gray&color=blue)](https://github.com/kitsumed/ShizuCallRecorder/releases/latest)
@@ -21,6 +29,9 @@ The first **non-root FOSS call recorder app for Android 11+**! ShizuCallRecorder
 - Records **both sides of phone calls** (incoming and outgoing)
     - Should work even when using Bluetooth or a remote headset
 - **Separate uplink and downlink audio** inside a stereo recording
+- **(Fork) Video call recording** on Android 14+: records the screen with the call audio into an MP4 next to the audio file
+    - Starts by itself when the call is reported as a video call or a camera turns on, or from a button on the notification
+    - Records everything shown on the screen, including other apps. Off by default
 - **Cellular/VoLTE capture**, with **best-effort support for *VoIP*** (and third-party apps) ***starting* Android 14+**
 - **Security** toggles to **manage Shizuku on/off state**
     - An attempt to reduce the potential attack surface introduced by Shizuku

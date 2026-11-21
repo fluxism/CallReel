@@ -77,6 +77,7 @@ interface SettingsActions {
     fun setFileNameTemplate(template: String)
     fun setCallDetectionMode(mode: CallDetectionMode)
     fun setRecordThirdPartyCalls(enabled: Boolean)
+    fun setVideoRecordingEnabled(enabled: Boolean)
     fun setPostRecordingFileNotification(enabled: Boolean)
     fun setOverlayEnabled(enabled: Boolean)
     fun setPlaybackCaptureAllowed(enabled: Boolean)
@@ -431,6 +432,14 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
      */
     override fun setRecordThirdPartyCalls(enabled: Boolean) {
         preferences.setRecordThirdPartyCallsEnabled(enabled)
+        refresh()
+    }
+
+    /**
+     * FORK: Enables or disables recording the screen when a recorded call is a video call.
+     */
+    override fun setVideoRecordingEnabled(enabled: Boolean) {
+        preferences.setVideoRecordingEnabled(enabled)
         refresh()
     }
 
