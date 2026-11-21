@@ -21,7 +21,7 @@ object VideoConfig {
     const val FRAME_RATE = 30
 
     /** Video bitrate in bits per second. */
-    const val VIDEO_BIT_RATE = 4_000_000
+    const val VIDEO_BIT_RATE = 2_000_000
 
     /** Seconds between key frames. Short, so the file seeks well and resumes quickly after a pause. */
     const val I_FRAME_INTERVAL_SECONDS = 2

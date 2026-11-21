@@ -33,7 +33,7 @@ provider de-duplicates the name.
 
 | Unit | Responsibility |
 |---|---|
-| `VideoConfig` | Constants: long side <= 1280 px, 30 fps, 4 Mbit/s, key frame every 2 s, repeat-frame delay 100 ms, AAC 32 kbit/s mono / 64 kbit/s stereo. |
+| `VideoConfig` | Constants: long side <= 1280 px, 30 fps, 2 Mbit/s, key frame every 2 s, repeat-frame delay 100 ms, AAC 32 kbit/s mono / 64 kbit/s stereo. |
 | `VideoSizeCalculator` | Pure. Display size + max long side + codec alignment -> encoder size (aspect kept, aligned down, never upscaled). |
 | `Mp4Timeline` | Pure. Maps raw monotonic video timestamps and audio block arrivals onto one "active time" axis that excludes paused time; keeps both tracks strictly increasing; re-anchors audio when it falls more than 200 ms behind the clock (dropped blocks). |
 | `DisplayMirror` | Reflection wrapper: main display size via `DisplayManagerGlobal.getDisplayInfo(0)`, mirror via hidden static `DisplayManager.createVirtualDisplay(name, w, h, displayIdToMirror, surface)`. |
