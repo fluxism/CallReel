@@ -35,7 +35,7 @@ provider de-duplicates the name.
 |---|---|
 | `VideoConfig` | Constants: long side <= 1280 px, 30 fps, 4 Mbit/s, key frame every 2 s, repeat-frame delay 100 ms, AAC 32 kbit/s mono / 64 kbit/s stereo. |
 | `VideoSizeCalculator` | Pure. Display size + max long side + codec alignment -> encoder size (aspect kept, aligned down, never upscaled). |
-| `Mp4Timeline` | Pure. Maps raw monotonic video timestamps and audio block arrivals onto one "active time" axis that excludes paused time; keeps both tracks strictly increasing; re-anchors audio when it drifts more than 100 ms from the clock (dropped blocks). |
+| `Mp4Timeline` | Pure. Maps raw monotonic video timestamps and audio block arrivals onto one "active time" axis that excludes paused time; keeps both tracks strictly increasing; re-anchors audio when it falls more than 200 ms behind the clock (dropped blocks). |
 | `DisplayMirror` | Reflection wrapper: main display size via `DisplayManagerGlobal.getDisplayInfo(0)`, mirror via hidden static `DisplayManager.createVirtualDisplay(name, w, h, displayIdToMirror, surface)`. |
 | `Mp4Writer` | MediaMuxer wrapper for two tracks. Starts when both formats are known, buffers early samples (bounded), serialises writes, reports whether any video sample was written. |
 | `ShellVideoRecorder` | Owns one MP4 session: AVC surface encoder + `DisplayMirror` + AAC encoder + `Mp4Writer`. `start()`, `offerAudio(pcm, frames)`, `pause()`, `resume()`, `stop(): Boolean` (true when the file has video). |
@@ -88,7 +88,8 @@ AIDL:
 - Rotation mid-call letterboxes; the video size is fixed at start.
 - Whether WhatsApp reports its video state to Telecom is unverified; camera detection and the manual
   button cover it.
-- Requires the DisplayManager mirror API. Where it is missing, video fails cleanly and audio continues.
+- Requires Android 14+ (API 34): the DisplayManager mirror API does not exist on Android 11 and 12, and VoIP audio
+  capture also needs 14+. Below that the setting is hidden.
 
 ## Fork obligations (upstream licence, additional terms 3 and 4)
 
