@@ -70,3 +70,28 @@ When this option is enabled, the application will behave as follows:
 
 >[!WARNING]
 > As mentioned earlier, recording may take a few seconds because Shizuku needs to start. If you enable **Start only when recording**, be aware that the audio will **not be recorded immediately** when you press the button as we would first need to wait for Shizuku to start.
+
+## Video call recording (ShizuVideoCallRecorder fork)
+
+> [!NOTE]
+> This section describes a feature of the **ShizuVideoCallRecorder fork**. It does not exist in the original ShizuCallRecorder.
+
+The fork can also record the video of a video call, for example a WhatsApp video call. It needs **Android 14 or more recent**; on older versions the setting is hidden.
+
+1. Use the **InCallService** call detection method and enable **Record third-party apps**, as apps like WhatsApp are third-party apps.
+2. In **Settings**, under **Recording**, enable **Record video on video calls**.
+
+When a call is being recorded and it is a video call, the app records the screen into an `.mp4` file. It is saved next to the audio file, with the same name. The audio file itself is written exactly as without this feature.
+
+The video starts by itself when:
+- Android reports the call as a video call, or
+- a camera is turned on during a call from a third-party app.
+
+You can also start and stop it by hand with the **Record video** / **Stop video** button on the recording notification. Once started, the video continues until the call ends or you stop it. If you stop it by hand, it will not start again by itself during that call.
+
+### Limitations
+- **The whole screen is recorded**, exactly as you see it. If you open another app during the call, that app is recorded too, including notifications that pop up.
+- Screens that an app marks as secure are recorded as black.
+- If you rotate the phone during the call, the picture is letterboxed. The video size is chosen when the video starts.
+- The video only starts while the call is being recorded. If the recording is in standby, start the recording first.
+- The same laws that apply to recording a call apply to recording its video. Make sure you are allowed to record.
