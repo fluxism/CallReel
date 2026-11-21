@@ -89,4 +89,31 @@ object AudioConfig {
      * This is used to avoid flooding the shell log with repeated warnings when the native AudioRecord capture returns zero bytes.
      */
     const val ZERO_READ_WARNING_INTERVAL = 50L
+
+    /*
+     * FORK NOTE (ShizuVideoCallRecorder): upstream commit 42ba24d ("Fix Silence Detection") uses the three constants below in
+     * ShellRecordingEngine but never added them, so upstream does not compile at that commit. The values here are the fork's
+     * own conservative choices, not upstream's. Replace them with upstream's values once upstream publishes them.
+     */
+
+    /**
+     * Number of consecutive silent blocks from one capture before a warning is logged.
+     *
+     * At 20 ms/block, 250 blocks correspond to approximately five seconds.
+     */
+    const val SILENCE_WARNING_INTERVAL_BLOCKS = 250L
+
+    /**
+     * Number of consecutive silent blocks, on every capture and without any audio captured before, after which the session is
+     * considered failed and its file is deleted.
+     *
+     * At 20 ms/block, 1500 blocks correspond to approximately thirty seconds.
+     */
+    const val SILENCE_FAILURE_INTERVAL_BLOCKS = 1_500L
+
+    /**
+     * A block is silent when no sample has an absolute value above this. Zero means only true digital silence counts,
+     * which is what Android delivers when it silences a capture; a live microphone always has some noise.
+     */
+    const val SILENCE_FAILURE_AMPLITUDE = 0
 }
