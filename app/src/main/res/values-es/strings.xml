@@ -189,7 +189,6 @@
     <string name="a11y_contact_photo">Foto de %1$s</string>
     <string name="recording_failure_capture_read_failed">Ocurrió un error al leer y procesar el audio capturado.</string>
     <string name="recording_failure_capture_start_failed">Ocurrió un error cuando comenzó la captura del audio.</string>
-    <string name="recording_error_cannot_reach_binder">Fallo al comenzar la grabación. Ocurrió un error al llamar al método del enlazador ShellService.</string>
     <string name="audio_source_mic_voice_recognition_downlink_description">Graba ambos lados de una llamada telefónica (mezclando el micrófono de reconocimiento de voz y el canal de bajada) sin tonos telefónicos.</string>
     <string name="audio_source_uplink_downlink_description">Graba ambos lados de una llamada telefónica (mezclando el canal de subida y el de bajada) sin tonos telefónicos.</string>
     <string name="audio_source_remote_submix_description">Captura el audio exactamente como se envía a los altavoces. El dispositivo dejará de emitir sonido.</string>
