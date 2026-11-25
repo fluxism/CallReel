@@ -20,6 +20,7 @@ import com.kitsumed.shizucallrecorder.services.recording.RecordingForegroundServ
 import com.kitsumed.shizucallrecorder.system.permissions.PermissionChecks
 import com.kitsumed.shizucallrecorder.utils.AppLogger
 import com.kitsumed.shizucallrecorder.utils.PhoneNumberManager
+import com.kitsumed.shizucallrecorder.ForkConfig
 import com.kitsumed.shizucallrecorder.utils.SponsorNotificationHelper
 
 /**
@@ -312,6 +313,7 @@ class RecordingDecisionEngine private constructor(context: Context) {
      * Checks if it has been more than 1 year since the last support us notification reminder, and posts a notification.
      */
     private fun checkAndTriggerSupportNotification() {
+        if (!ForkConfig.SHOW_UPSTREAM_SPONSOR_PROMPTS) return // FORK: see ForkConfig
         val lastNotificationTime = appPreferences.getLastForcedReminderSupportProjectTimeNotification()
         val currentTime = System.currentTimeMillis()
         // 31536000000 milliseconds = 1 year

@@ -5,7 +5,7 @@
  *  The full license text is available in the LICENSE file at the root of this project.
  *  This software is distributed WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- *  This file was added by the ShizuVideoCallRecorder fork (video call recording).
+ *  This file was added by the CallReel fork (video call recording).
  */
 
 package com.kitsumed.shizucallrecorder.services.shell.recording.video
@@ -45,5 +45,5 @@ object VideoConfig {
     const val THREAD_JOIN_TIMEOUT_MS = 3_000L
 
     /** Name of the virtual display, visible in "dumpsys display". */
-    const val VIRTUAL_DISPLAY_NAME = "shizu-video-recorder"
+    const val VIRTUAL_DISPLAY_NAME = "callreel-video"
 }

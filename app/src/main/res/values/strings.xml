@@ -10,7 +10,7 @@
     <!-- ========================================== -->
     <!-- GENERAL MESSAGES & APP LEVEL               -->
     <!-- ========================================== -->
-    <string name="app_name" translatable="false">ShizuVideoCallRecorder</string>
+    <string name="app_name" translatable="false">CallReel</string>
     <string name="about_fork_notice" translatable="false">This software is a fork of ShizuCallRecorder, available at https://github.com/kitsumed/ShizuCallRecorder.</string>
     <string name="general_close">Close</string>
     <string name="general_continue">Continue</string>
@@ -31,7 +31,7 @@
     <string name="general_delete">Delete</string>
     <string name="general_deleted">Deleted</string>
     <string name="general_system_limitation">System Limitation</string>
-    <string name="general_system_limitation_message">ShizuVideoCallRecorder will not work on this device as your shell application does not have the required permissions:\n\n%1$s\n\nThere is nothing you can do about this, the app cannot function and will now close.</string>
+    <string name="general_system_limitation_message">CallReel will not work on this device as your shell application does not have the required permissions:\n\n%1$s\n\nThere is nothing you can do about this, the app cannot function and will now close.</string>
     <string name="general_permission_escalation_exhausted">Failed to gain \'%1$s\' permission \'%2$s\'.\nAll escalation steps (%3$d) were exhausted.\n\nPlease ensure that Shizuku is currently running as this may be causing this error.\n\nYour OEM may also be actively blocking or reverting all of our permission changes. Please look into your phone settings to see if there is anything that could disable that behavior.\n\nDevices from Vivo, Oppo, Xiaomi, and other Chinese vendors often include aggressive system restrictions that may completely block access to this permission.\n\nIf you find a way to grant yourself the required permission manually with ADB, please report it to us by creating an issue on GitHub!</string>
 
     <!-- ========================================== -->
@@ -52,19 +52,22 @@
     <!-- ========================================== -->
 
     <!-- Disclaimer Screen -->
-    <string name="disclaimer_title">Welcome to ShizuVideoCallRecorder</string>
+    <string name="disclaimer_title">Welcome to CallReel</string>
     <string name="disclaimer_wiki_link_KEYWORD">Wiki</string>
     <string name="disclaimer_introduction">Please open and read the setup instructions on our Wiki before proceeding. Then, read the disclaimer below.</string>
     <string name="disclaimer_body" translatable="false">
         By using this application, you confirm that you have read this disclaimer and acknowledge that this software is licensed under the GNU General Public License v3.0 with additional clauses under Section 7.\n\n
 
-        Copyright © 2026 Kitsumed (Med)\n\n
+        CallReel is a FORK (a modified version) of ShizuCallRecorder, available at https://github.com/kitsumed/ShizuCallRecorder. It is not the original project and is not affiliated with or endorsed by its author.\n\n
+
+        Copyright © 2026 Kitsumed (Med), original work\n
+        Copyright © 2026 fluxism, CallReel modifications\n\n
 
         This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n\n
 
         This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.\n\n
 
-        You should have received a copy of the GNU General Public License along with this program. If not, see https://github.com/kitsumed/ShizuCallRecorder/blob/main/LICENSE/.\n\n
+        You should have received a copy of the GNU General Public License along with this program. If not, see https://github.com/fluxism/CallReel/blob/main/LICENSE.\n\n
 
         ----------------------Disclaimer---------------------------\n\n
 

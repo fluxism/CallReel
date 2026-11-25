@@ -79,7 +79,7 @@ interface IShellService {
 
     /**
      * Starts recording the screen (with a copy of the call audio) into an MP4 file, next to the active recording session.
-     * Requires an active recording session started with startRecording(). Added by the ShizuVideoCallRecorder fork.
+     * Requires an active recording session started with startRecording(). Added by the CallReel fork.
      *
      * The shell process takes ownership of the descriptor and closes it, also when this returns false.
      *

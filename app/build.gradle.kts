@@ -62,12 +62,12 @@ android {
 
     defaultConfig {
         // FORK: the upstream licence (additional term 3) requires a different package ID. The code namespace is unchanged.
-        applicationId = "com.fluxism.shizuvideocallrecorder"
+        applicationId = "com.fluxism.callreel"
         minSdk = 30
         targetSdk = 37
         // Keep theses two values hard-coded here and update them per version. (To keep F-Droid compatibility since their parser is very basic)
-        versionCode = 20
-        versionName = "2.0.0-video.1"
+        versionCode = 1
+        versionName = "1.0.0"
     }
     signingConfigs {
         // Signing config for CI environments.

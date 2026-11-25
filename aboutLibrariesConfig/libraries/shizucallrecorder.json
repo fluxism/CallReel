@@ -2,13 +2,17 @@
   "uniqueId": "com.kitsumed.shizucallrecorder",
   "developers": [
     {
-      "name": "Kitsumed",
+      "name": "fluxism (CallReel fork)",
+      "organisationUrl": "https://github.com/fluxism"
+    },
+    {
+      "name": "Kitsumed (original author of ShizuCallRecorder)",
       "organisationUrl": "https://github.com/kitsumed"
     }
   ],
-  "description": "FOSS Call recording powered through Shizuku!",
-  "name": "ShizuCallRecorder",
-  "website": "https://github.com/kitsumed/ShizuCallRecorder",
+  "description": "Call and video call recorder powered through Shizuku. A fork of ShizuCallRecorder, available at https://github.com/kitsumed/ShizuCallRecorder.",
+  "name": "CallReel",
+  "website": "https://github.com/fluxism/CallReel",
   "licenses": [
     "shizucallrecorder-gpl-3.0"
   ]

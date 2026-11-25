@@ -13,8 +13,8 @@
     <string name="general_outgoing">giden</string>
     <string name="general_reset">Sıfırla</string>
     <string name="general_system_limitation">Sistem kısıtlaması</string>
-    <string name="general_system_limitation_message">ShizuVideoCallRecorder bu cihazda çalışmayacak; shell uygulamanız gerekli izinlere sahip değil:\n\n%1$s\n\nBu konuda yapabileceğiniz bir şey yok; uygulama işlevini yerine getiremez ve şimdi kapanacak.</string>
-    <string name="disclaimer_title">ShizuVideoCallRecorder uygulamasına hoş geldiniz</string>
+    <string name="general_system_limitation_message">CallReel bu cihazda çalışmayacak; shell uygulamanız gerekli izinlere sahip değil:\n\n%1$s\n\nBu konuda yapabileceğiniz bir şey yok; uygulama işlevini yerine getiremez ve şimdi kapanacak.</string>
+    <string name="disclaimer_title">CallReel uygulamasına hoş geldiniz</string>
     <string name="disclaimer_wiki_link_KEYWORD">Wiki</string>
     <string name="disclaimer_introduction">Devam etmeden önce lütfen Wiki sayfamızdaki kurulum talimatlarını açıp okuyun. Ardından aşağıdaki yasal uyarıyı okuyun.</string>
     <string name="disclaimer_checkbox_label">Yasal uyarıyı okudum; bu yazılımın yasal gerekliliklerini, sorumluluklarını ve teknik sınırlamalarını anladım.</string>

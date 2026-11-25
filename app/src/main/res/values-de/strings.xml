@@ -12,8 +12,8 @@
     <string name="general_incoming">eingehend</string>
     <string name="general_outgoing">ausgehend</string>
     <string name="general_system_limitation">Systemeinschränkung</string>
-    <string name="general_system_limitation_message">ShizuVideoCallRecorder wird nicht auf diesem Gerät funktionieren, da Ihre Shell-Anwendung nicht die erforderlichen Berechtigungen hat:\n\n%1$s\n\nDieses Problem kann von Ihnen nicht behoben werden. Die App kann auf Ihrem Gerät nicht funktionieren und wird jetzt geschlossen.</string>
-    <string name="disclaimer_title">Willkommen bei ShizuVideoCallRecorder</string>
+    <string name="general_system_limitation_message">CallReel wird nicht auf diesem Gerät funktionieren, da Ihre Shell-Anwendung nicht die erforderlichen Berechtigungen hat:\n\n%1$s\n\nDieses Problem kann von Ihnen nicht behoben werden. Die App kann auf Ihrem Gerät nicht funktionieren und wird jetzt geschlossen.</string>
+    <string name="disclaimer_title">Willkommen bei CallReel</string>
     <string name="disclaimer_wiki_link_KEYWORD">Wiki</string>
     <string name="disclaimer_introduction">Bitte öffnen Sie die Einrichtungsanweisungen auf unserem Wiki, bevor Sie fortfahren. Anschließend lesen Sie den Haftungsausschluss unten.</string>
     <string name="disclaimer_checkbox_label">Ich habe den Haftungsausschluss gelesen und verstehe die rechtlichen Anforderungen, Verantwortungen und technischen Einschränkungen dieser Anwendung.</string>

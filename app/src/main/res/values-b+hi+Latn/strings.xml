@@ -21,7 +21,7 @@
     <string name="a11y_overlay_recording_stopped">Abhilekh ke liye taiyaar hai</string>
     <string name="a11y_overlay_drag_handle">Pakadkar kheenchein, overlay ko hilane ke liye der tak dabayein aur kheenchein</string>
     <string name="a11y_contact_photo">%1$s ka chitr</string>
-    <string name="disclaimer_title">ShizuVideoCallRecorder mein swagat hai aapka</string>
+    <string name="disclaimer_title">CallReel mein swagat hai aapka</string>
     <string name="disclaimer_wiki_link_KEYWORD">Gyaan kosh</string>
     <string name="disclaimer_introduction">Aap shuru karne se pehle hamare Gyaan Kosh mein diye gaye setup nirdesh padhein. Phir, neeche diya gaya asvikaran padhein.</string>
 </resources>

@@ -13,8 +13,8 @@
     <string name="general_outgoing">去電</string>
     <string name="general_reset">重設</string>
     <string name="general_system_limitation">系統限制</string>
-    <string name="general_system_limitation_message">由於您的 Shell 應用程式缺少必要權限，ShizuVideoCallRecorder 無法在此裝置上運作：\n\n%1$s\n\n您無法透過任何操作解決此問題。應用程式無法運作，現在將關閉。</string>
-    <string name="disclaimer_title">歡迎使用 ShizuVideoCallRecorder</string>
+    <string name="general_system_limitation_message">由於您的 Shell 應用程式缺少必要權限，CallReel 無法在此裝置上運作：\n\n%1$s\n\n您無法透過任何操作解決此問題。應用程式無法運作，現在將關閉。</string>
+    <string name="disclaimer_title">歡迎使用 CallReel</string>
     <string name="disclaimer_wiki_link_KEYWORD">Wiki</string>
     <string name="disclaimer_introduction">繼續之前，請先開啟並閱讀 Wiki 上的設定說明，接著閱讀下方的免責聲明。</string>
     <string name="disclaimer_checkbox_label">我已閱讀免責聲明，並瞭解本軟體的法律要求、相關責任及技術限制。</string>

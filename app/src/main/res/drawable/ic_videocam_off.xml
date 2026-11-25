@@ -1,7 +1,7 @@
 <!--
   ~ ShizuCallRecorder: FOSS Call recording powered through ADB/Shizuku!
   ~  This software is licensed under the GNU General Public License v3 or later, with additional terms as permitted under Section 7.
-  ~  Added by the ShizuVideoCallRecorder fork. Icon path from Material Icons (Apache License 2.0).
+  ~  Added by the CallReel fork. Icon path from Material Icons (Apache License 2.0).
   -->
 
 <vector xmlns:android="http://schemas.android.com/apk/res/android"

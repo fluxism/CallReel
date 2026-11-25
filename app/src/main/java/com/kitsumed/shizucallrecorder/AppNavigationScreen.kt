@@ -147,7 +147,7 @@ fun AppNavigationScreen() {
 
                     var showSponsorScreen by remember {
                         // Check if it's been more than a year since the last reminder. 31536000000 ms = 1 year.
-                        mutableStateOf(currentTime - lastReminderTime > 31536000000L)
+                        mutableStateOf(ForkConfig.SHOW_UPSTREAM_SPONSOR_PROMPTS && currentTime - lastReminderTime > 31536000000L) // FORK: see ForkConfig
                     }
 
                     if (showSponsorScreen) {

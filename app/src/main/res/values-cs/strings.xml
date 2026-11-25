@@ -17,9 +17,9 @@
     <string name="general_delete">Smazat</string>
     <string name="general_deleted">Smazáno</string>
     <string name="general_system_limitation">Systémové omezení</string>
-    <string name="general_system_limitation_message">ShizuVideoCallRecorder nebude na tomto zařízení fungovat, protože aplikace shell nemá požadovaná oprávnění:\n\n%1$s\n\nS tímto bohužel nelze nic dělat. Aplikace nemůže fungovat a nyní se ukončí.</string>
+    <string name="general_system_limitation_message">CallReel nebude na tomto zařízení fungovat, protože aplikace shell nemá požadovaná oprávnění:\n\n%1$s\n\nS tímto bohužel nelze nic dělat. Aplikace nemůže fungovat a nyní se ukončí.</string>
     <string name="general_permission_escalation_exhausted">Nepodařilo se získat oprávnění „%1$s“: „%2$s“.\nByly vyčerpány všechny kroky pro zvýšení oprávnění (%3$d).\n\nUjistěte se, že Shizuku právě běží, protože tato chyba může být způsobena právě tím.\n\nVýrobce vašeho zařízení také může aktivně blokovat nebo vracet zpět všechny změny oprávnění, které se aplikace pokouší provést. Zkontrolujte nastavení telefonu, zda tam není něco, co by toto chování mohlo vypnout.\n\nZařízení od výrobců Vivo, Oppo, Xiaomi a dalších čínských značek často obsahují agresivní systémová omezení, která mohou přístup k tomuto oprávnění úplně zablokovat.\n\nPokud najdete způsob, jak si požadované oprávnění udělit ručně pomocí ADB, dejte nám prosím vědět vytvořením issue na GitHubu!</string>
-    <string name="disclaimer_title">Vítá vás ShizuVideoCallRecorder</string>
+    <string name="disclaimer_title">Vítá vás CallReel</string>
     <string name="disclaimer_wiki_link_KEYWORD">Wiki</string>
     <string name="disclaimer_introduction">Než budete pokračovat, otevřete si prosím pokyny k nastavení na naší Wiki a přečtěte si je. Poté si přečtěte níže uvedené prohlášení.</string>
     <string name="disclaimer_checkbox_label">Potvrzuji, že jsem si přečetl/a prohlášení a rozumím právním požadavkům, odpovědnostem i technickým omezením tohoto softwaru.</string>

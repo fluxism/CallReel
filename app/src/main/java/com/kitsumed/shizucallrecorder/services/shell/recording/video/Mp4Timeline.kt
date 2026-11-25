@@ -5,7 +5,7 @@
  *  The full license text is available in the LICENSE file at the root of this project.
  *  This software is distributed WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- *  This file was added by the ShizuVideoCallRecorder fork (video call recording).
+ *  This file was added by the CallReel fork (video call recording).
  */
 
 package com.kitsumed.shizucallrecorder.services.shell.recording.video

@@ -3,7 +3,7 @@ package com.kitsumed.shizucallrecorder;
 /**
  * Callback interface for receiving video recording events from the shell-side.
  *
- * Added by the ShizuVideoCallRecorder fork.
+ * Added by the CallReel fork.
  */
 interface IVideoRecordingCallback {
 

@@ -10,12 +10,12 @@
     <string name="general_incoming">bejövő</string>
     <string name="general_outgoing">kimenő</string>
     <string name="general_system_limitation">Rendszerkorlát</string>
-    <string name="disclaimer_title">Üdvözöljük a ShizuVideoCallRecorder-ben</string>
+    <string name="disclaimer_title">Üdvözöljük a CallReel-ben</string>
     <string name="disclaimer_wiki_link_KEYWORD">Wiki</string>
     <string name="general_close">Bezár</string>
     <string name="general_resume">Folytatás</string>
     <string name="general_reset">Visszaállít</string>
-    <string name="general_system_limitation_message">A ShizuVideoCallRecorder nem fog működni ezen a készüléken mivel a shell alkalmazás nem rendelkezik a megfelelő jogosultságokkal.\n\n%1$s\n\nA helyzettel nem lehet mit tenni, az alkalmazás nem tud működni és most bezáródik.</string>
+    <string name="general_system_limitation_message">A CallReel nem fog működni ezen a készüléken mivel a shell alkalmazás nem rendelkezik a megfelelő jogosultságokkal.\n\n%1$s\n\nA helyzettel nem lehet mit tenni, az alkalmazás nem tud működni és most bezáródik.</string>
     <string name="disclaimer_introduction">Továbblépés előtt tekintse át a telepítési útmutatót a Wiki oldalunkon, ezt követően pedig a lenti figyelmeztetéseket.</string>
     <string name="disclaimer_checkbox_label">Elolvastam a jogi nyilatkozatot és tisztában vagyok a szoftverrel kapcsolatos jogi követelményekkel, felelősségi körökkel valamint a szoftver műszaki korlátaival.</string>
     <string name="disclaimer_wait">Várjon %1$d másodpercet</string>

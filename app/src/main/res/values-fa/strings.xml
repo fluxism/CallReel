@@ -17,7 +17,7 @@
     <string name="general_delete">حذف</string>
     <string name="general_deleted">حذف شده</string>
     <string name="general_system_limitation">محدودیت سیستم</string>
-    <string name="general_system_limitation_message">ShizuVideoCallRecorder روی این دستگاه کار نمی‌کند، چون برنامهٔ Shell شما مجوزهای لازم را ندارد:\n\n%1$s\n\nشما در این مورد کاری نمی‌توانید بکنید؛ برنامه نمی‌تواند کار کند و همین حالا بسته می‌شود.</string>
+    <string name="general_system_limitation_message">CallReel روی این دستگاه کار نمی‌کند، چون برنامهٔ Shell شما مجوزهای لازم را ندارد:\n\n%1$s\n\nشما در این مورد کاری نمی‌توانید بکنید؛ برنامه نمی‌تواند کار کند و همین حالا بسته می‌شود.</string>
     <string name="general_permission_escalation_exhausted">دریافت مجوز «%1$s» برای «%2$s» ناموفق بود.\nتمام مراحل افزایش سطح دسترسی (%3$d) انجام شد.\n\nلطفاً مطمئن شوید که Shizuku در حال اجراست، چون ممکن است علت این خطا باشد.\n\nهمچنین ممکن است سازندهٔ دستگاه شما به‌طور فعال همهٔ تغییرات مجوزهای ما را مسدود یا لغو کند. لطفاً تنظیمات گوشی خود را بررسی کنید تا ببینید آیا گزینه‌ای وجود دارد که بتواند این رفتار را غیرفعال کند.\n\nدستگاه‌های Vivo، Oppo، Xiaomi و سایر سازندگان چینی معمولاً محدودیت‌های سیستمی شدیدی دارند که ممکن است دسترسی به این مجوز را کاملاً مسدود کنند.\n\nاگر راهی پیدا کردید که با ADB مجوز موردنیاز را به‌صورت دستی بدهید، لطفاً با ایجاد یک Issue در GitHub آن را به ما گزارش دهید!</string>
     <string name="a11y_overlay_action_start">شروع ضبط</string>
     <string name="a11y_overlay_action_pause">مكث ضبط</string>
@@ -27,7 +27,7 @@
     <string name="a11y_overlay_recording_stopped">آماده ضبط</string>
     <string name="a11y_overlay_drag_handle">برای جابه‌جایی لایه رویی، دستگیره را با فشردن طولانی بکشید.</string>
     <string name="a11y_contact_photo">عکس %1$s</string>
-    <string name="disclaimer_title">به ShizuVideoCallRecorder خوش آمدید</string>
+    <string name="disclaimer_title">به CallReel خوش آمدید</string>
     <string name="disclaimer_wiki_link_KEYWORD">ویکی</string>
     <string name="disclaimer_introduction">لطفاً قبل از ادامه، دستورالعمل‌های راه‌اندازی را در ویکی ما باز کرده و بخوانید. سپس، سلب مسئولیت را در زیر بخوانید.</string>
     <string name="disclaimer_checkbox_label">سلب مسئولیت را خوانده‌ام و شرایط قانونی، مسئولیت‌ها و محدودیت‌های فنی این برنامه را می‌فهمم.</string>

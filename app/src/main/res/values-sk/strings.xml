@@ -17,9 +17,9 @@
     <string name="general_delete">Odstrániť</string>
     <string name="general_deleted">Vymazané</string>
     <string name="general_system_limitation">Systémové obmedzenie</string>
-    <string name="general_system_limitation_message">Aplikácia ShizuVideoCallRecorder nebude na tomto zariadení fungovať, pretože vaša shellová aplikácia nemá potrebné oprávnenia:\n\n%1$s\n\nS touto situáciou nemôžete nič urobiť, aplikácia nemôže fungovať a teraz sa zatvorí.</string>
+    <string name="general_system_limitation_message">Aplikácia CallReel nebude na tomto zariadení fungovať, pretože vaša shellová aplikácia nemá potrebné oprávnenia:\n\n%1$s\n\nS touto situáciou nemôžete nič urobiť, aplikácia nemôže fungovať a teraz sa zatvorí.</string>
     <string name="general_permission_escalation_exhausted">Nepodarilo sa získať oprávnenie „%1$s“ pre „%2$s“.\nVšetky kroky na zvýšenie oprávnení (%3$d) boli vyčerpané.\n\nUistite sa, prosím, že aplikácia Shizuku je momentálne spustená, pretože to môže byť príčinou tejto chyby.\n\nVáš výrobca zariadenia môže tiež aktívne blokovať alebo rušiť všetky naše zmeny oprávnení. Skontrolujte prosím nastavenia svojho telefónu, či sa tam nenachádza niečo, čo by mohlo toto správanie deaktivovať.\n\nZariadenia od spoločností Vivo, Oppo, Xiaomi a iných čínskych výrobcov často obsahujú prísne systémové obmedzenia, ktoré môžu úplne zablokovať prístup k tomuto oprávneniu.\n\nAk nájdete spôsob, ako si potrebné oprávnenie udeliť ručne pomocou ADB, nahláste nám to prosím vytvorením hlásenia na GitHub!</string>
-    <string name="disclaimer_title">Vitajte v aplikácii ShizuVideoCallRecorder</string>
+    <string name="disclaimer_title">Vitajte v aplikácii CallReel</string>
     <string name="disclaimer_wiki_link_KEYWORD">Wiki</string>
     <string name="disclaimer_introduction">Predtým, ako budete pokračovať, otvorte si a prečítajte si inštrukcie k inštalácii na našej Wiki. Následne si prečítajte nižšie uvedené upozornenie.</string>
     <string name="disclaimer_checkbox_label">Prečítal som si vyhlásenie o vylúčení zodpovednosti a rozumiem právnym požiadavkám, povinnostiam a technickým obmedzeniam tohto softvéru.</string>

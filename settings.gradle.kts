@@ -30,6 +30,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ShizuCallRecorder"
+rootProject.name = "CallReel"
 include(":app")
 include(":android-framework-hidden-stubs")

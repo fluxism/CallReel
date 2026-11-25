@@ -60,6 +60,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kitsumed.shizucallrecorder.AppUrls
+import com.kitsumed.shizucallrecorder.ForkConfig
 import com.kitsumed.shizucallrecorder.R
 import com.kitsumed.shizucallrecorder.data.AppPreferences
 import com.kitsumed.shizucallrecorder.services.callDetection.CallDetectionMode
@@ -273,12 +274,14 @@ private fun AboutSection(versionString: String) {
                 modifier = Modifier.weight(1f)
             ) { Text(stringResource(R.string.settings_view_licenses)) }
         }
-        Button(
-            onClick = { showSponsorScreen = true },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 4.dp)
-        ) { Text(stringResource(R.string.sponsor_title)) }
+        if (ForkConfig.SHOW_UPSTREAM_SPONSOR_PROMPTS) { // FORK: see ForkConfig
+            Button(
+                onClick = { showSponsorScreen = true },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 4.dp)
+            ) { Text(stringResource(R.string.sponsor_title)) }
+        }
     }
 
     if (showSponsorScreen) {
