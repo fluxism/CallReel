@@ -1,1 +1,1 @@
-Empowers ADB through Shizuku to record phone calls on non-rooted device! 
+Record phone calls and video calls without root, using Shizuku.

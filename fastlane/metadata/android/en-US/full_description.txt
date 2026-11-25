@@ -1,24 +1,16 @@
-<b>ShizuCallRecorder</b> is the first <b>non-root FOSS call recorder app for Android 11+</b>.
+<b>CallReel</b> records your phone calls, and the video of your video calls, on a non-rooted phone. It is free and open source, has no ads and collects nothing.
 
-<p><b>This app main focus are Cellular/VoLTE calls, however, we do attempt to support Wifi-Calling and VoIP when possible</b>. Third-party app support <em><b>is not guaranteed</b></em>, they may work provided they use Android Telecom.</p>
+<p><b>This app is a fork.</b> It is a modified version of another open source call recorder. The original project and its author are credited, with a link, in the app (Settings, About) and in the README of the source repository. CallReel is not the original app and is not affiliated with or endorsed by its author.</p>
 
 <p><b>Features</b></p>
-<ul><li>Records <b>both sides of phone calls</b> (incoming and outgoing)<ul><li>Should work even when using Bluetooth or a remote headset</li></ul></li><li><b>Separate uplink and downlink audio</b> inside a stereo recording</li><li><b>Security</b> toggles to <b>manage Shizuku on/off state</b><ul><li>An attempt to reduce the potential attack surface introduced by Shizuku</li><li>Helps with apps that detect / yells at you when USB Debugging or Shizuku is enabled</li></ul></li><li><b>Automatic call recording</b> option with basic <b>exclusion rules</b>:<ul><li>Ignore anonymous calls</li><li>Ignore specific contacts</li><li>Ignore all contacts</li></ul></li><li>Multiple codecs available: <b>Opus</b>, <b>AAC</b>, <b>HE-AAC-v1</b>, and more!</li><li>The app runs only on phone event changes, no persistent background process and notifications</li></ul>
+<ul><li><b>Video call recording</b> (Android 14+): when a recorded call is a video call, the screen is recorded with the call audio into an MP4 file next to the audio file<ul><li>Starts by itself for video calls, or from a button on the notification</li><li>Works with apps that use Android Telecom, such as WhatsApp</li><li>Off by default</li></ul></li><li>Records <b>both sides of phone calls</b> (incoming and outgoing), also with Bluetooth or a headset</li><li><b>Separate uplink and downlink audio</b> inside a stereo recording</li><li><b>Security</b> toggles that start Shizuku only when it is needed</li><li><b>Automatic call recording</b> with exclusion rules: anonymous calls, specific contacts, all contacts</li><li>Several codecs: <b>Opus</b>, <b>AAC</b>, <b>HE-AAC-v1</b> and more</li><li>Runs only when a call happens, with no persistent background process</li></ul>
 
 <p><b>Requirements</b></p>
-<ul><li><b>Android 11</b> or newer</li><li>See the <b>Android Tested Versions</b> table on <a href="https://github.com/kitsumed/ShizuCallRecorder#requirements">GitHub</a> for more information on limitations</li><li><a href="https://github.com/thedjchi/Shizuku">Shizuku</a> (recommended fork: <a href="https://github.com/thedjchi">thedjchi</a>)</li></ul>
+<ul><li><b>Android 11</b> or newer for audio. <b>Android 14</b> or newer for video and for third-party apps</li><li><a href="https://github.com/thedjchi/Shizuku">Shizuku</a></li></ul>
 
-<p><b>Installation</b></p>
-Please follow the installation instructions in the <a href="https://github.com/kitsumed/ShizuCallRecorder/blob/main/docs/SUPPORT.md">SUPPORT documentation</a>, under <b>Installation &amp; Configuration</b>.
-
-<b>Please note that the official release source is GitHub.</b>
-
-
-<p><b>Support the Project</b></p>
-<p>If you find <b>ShizuCallRecorder</b> useful and want to support its development, you can contribute in several ways:</p>
-<ul><li>Contribute to the project on GitHub: <a href="https://github.com/kitsumed/ShizuCallRecorder/blob/main/CONTRIBUTING.md">Contributing Guide</a></li><li>Support ongoing development via GitHub Sponsors: <a href="https://github.com/sponsors/kitsumed">Sponsor kitsumed</a></li></ul>
+<p><b>Good to know</b></p>
+<ul><li>Video recording records the whole screen, exactly as you see it, including other apps you open during the call</li><li>The app uses hidden Android APIs through Shizuku. It can break with a new Android release or on some devices</li><li>Setup instructions are in the <a href="https://github.com/fluxism/CallReel/blob/main/docs/SUPPORT.md">documentation</a></li></ul>
 
 <p><b>Disclaimer</b></p>
-<p><b>Recording phone calls may be subject to complex and varying laws in different countries and jurisdictions.</b></p> <p>For example, you may need to <b>ensure you have consent</b> from all parties before recording conversations.The <b>developers and contributors are not responsible</b> for any misuse or legal consequences arising from the use of this application.</p>
-<p>You can <b>learn more on Wikipedia at</b>: <a href="https://en.wikipedia.org/wiki/Telephone_call_recording_laws">Telephone call recording laws</a>.</p>
-<b>If you are legally required to inform or ask someone for consent before recording</b>, please note that the application <b>DOES NOT handle this for you</b>. In some cases, certain features, like automatic call recording, may not be legally allowed. It is your responsibility to ensure compliance with applicable laws. <b>This is not legal advice</b>. Please <b>consult a legal professional for guidance</b> regarding your specific situation.
+<p><b>Recording phone calls and video calls may be subject to complex and varying laws in different countries and jurisdictions.</b> For example, you may need to <b>ensure you have consent</b> from all parties before recording. The <b>developers and contributors are not responsible</b> for any misuse or legal consequences arising from the use of this application.</p>
+<p>If you are legally required to inform or ask someone for consent before recording, the application <b>does not handle this for you</b>. In some cases, certain features, like automatic call recording, may not be legally allowed. It is your responsibility to comply with applicable laws. <b>This is not legal advice.</b></p>

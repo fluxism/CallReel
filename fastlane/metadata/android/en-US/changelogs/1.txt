@@ -1,0 +1,4 @@
+First release of CallReel.
+
+- Records the video of video calls (Android 14+): the screen is recorded with the call audio into an MP4 file next to the audio file. Starts by itself for video calls, or from the notification.
+- Audio call recording as in the project CallReel is forked from, including its latest silence detection and file name fixes.
