@@ -1,6 +1,7 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
+title: Free and Open-Source Android Call Recorder
 
 head:
   - - meta
@@ -14,6 +15,30 @@ head:
         android 11+ call recorder, free android call recorder, safe call recorder android,
         clear audio call recorder, third-party app call recorder, voip call recorder android,
         open source, foss
+  - - script
+    - type: application/ld+json
+    - |
+        {
+          "@context": "https://schema.org",
+          "@type": "MobileApplication",
+          "name": "ShizuCallRecorder",
+          "operatingSystem": "Android",
+          "applicationCategory": "UtilitiesApplication",
+          "description": "Free, open-source, FOSS and privacy friendly Android call recording app with no ads or subscriptions. Empowers ADB to record phone calls on non-rooted device!",
+          "url": "https://kitsumed.github.io/ShizuCallRecorder/",
+          "creator": {
+            "@type": "Person",
+            "name": "kitsumed"
+          },
+          "maintainer": {
+            "@type": "Person",
+            "name": "kitsumed"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": 0
+          }
+        }
 
 hero:
   name: "ShizuCallRecorder"
@@ -67,7 +92,8 @@ features:
 
 <script setup>
 import { ref, computed, onMounted, nextTick } from 'vue'
-import { VPTeamMembers } from 'vitepress/theme'
+import { VPTeamMembers, ReviewCarousel } from './.vitepress/theme'
+import { reviews } from './data/reviews'
 
 // Main team members
 const baseTeamMembers = [
@@ -226,6 +252,18 @@ onMounted(async () => {
   }
 })
 </script>
+
+<br>
+
+## What Users Are Saying
+
+<ReviewCarousel :reviews="reviews" />
+<p style="text-align: center; margin-top: 24px;">
+  Want to share your experience? 
+  <a href="https://github.com/kitsumed/ShizuCallRecorder/edit/main/docs/data/reviews.js" target="_blank" rel="noopener">
+    Post your own review and make a PR to add it!
+  </a>
+</p>
 
 <br>
 
