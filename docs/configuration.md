@@ -1,12 +1,12 @@
----
-description: Step-by-step installation and configuration guide for ShizuCallRecorder. Include recommended configuration to maintain your device security.
----
 [Go back to the home documentation page](./SUPPORT.md)
 # Configuration Guide
 
+> [!NOTE]
+> This guide was written by the original author of ShizuCallRecorder and adapted for CallReel, a fork of it. "I" is the original author. The [video call recording](#video-call-recording) section was written for CallReel.
+
 >[!NOTE]  
-> This guide assumes you have met all [requirements](https://github.com/kitsumed/ShizuCallRecorder#requirements) and installed all the mentioned third-party applications.  
-> This guide also assumes you have read the [disclaimer](https://github.com/kitsumed/ShizuCallRecorder#disclaimer) and are following the law.
+> This guide assumes you have met all [requirements](../README.md#requirements) and installed all the mentioned third-party applications.  
+> This guide also assumes you have read the [disclaimer](../README.md#disclaimer) and are following the law.
 
 ## Installing Shizuku
 Once you're ready **to install Shizuku**, **follow the setup instructions on the [Shizuku Setup Page Wiki](https://github.com/thedjchi/Shizuku/wiki/Setup)**. Please **read them carefully**, there is a lot of **important information about its behavior and recommended settings** to help maintain good device security.
@@ -15,14 +15,14 @@ Once you're ready **to install Shizuku**, **follow the setup instructions on the
 > Unless you know what you are doing, **you should enable "Auto-Disable USB Debugging" in Shizuku** to reduce security risks.
 
 >[!WARNING]
-> Shizuku **TCP Mode** allows you to start and keep alive Shizuku without a Wi-Fi connection, but it also comes with increased security risks. Please read the Shizuku wiki for more information. Additionally, some information is available in my [blog post about Shizuku](https://kitsumed.github.io/blog/posts/what-is-shizuku_how-does-it-work_security-implications/). You might also want to set another TCP port than the default `5555` one.
+> Shizuku **TCP Mode** allows you to start and keep alive Shizuku without a Wi-Fi connection, but it also comes with increased security risks. Please read the Shizuku wiki for more information. Additionally, some information is available in the original author's [blog post about Shizuku](https://kitsumed.github.io/blog/posts/what-is-shizuku_how-does-it-work_security-implications/). You might also want to set another TCP port than the default `5555` one.
 
 
-## Configuring ShizuCallRecorder
-You can download the latest version [here](https://github.com/kitsumed/ShizuCallRecorder/releases/latest).
+## Configuring CallReel
+You can download the latest version [here](https://github.com/fluxism/CallReel/releases/latest).
 
 ### The Two Method
-There are two ways to run ShizuCallRecorder, both dependent on how you plan to use Shizuku:
+There are two ways to run CallReel, both dependent on how you plan to use Shizuku:
 
 - If you plan on always having Shizuku running in the background and using it with other applications,  
   - You want [method 1](#method-1).
@@ -37,7 +37,7 @@ This method is for users who plan to have Shizuku always running in the backgrou
 >[!TIP]
 > If you want to record the start of a call and avoid the bigger delay of a few seconds before recording begins, you should use this mode.
 
-This is the default behavior of ShizuCallRecorder. You can enable certain settings in Shizuku like to reduce the chance of failures.
+This is the default behavior of CallReel. You can enable certain settings in Shizuku like to reduce the chance of failures.
 
 1. You **need** to enable **Start on Boot**.  
 2. You **may** want to enable **Watchdog** to automatically restart it on crashes (this create a persistent notification in the background).  
@@ -53,9 +53,9 @@ This method is for users who plan to have Shizuku only running when needed. (**R
 >[!NOTE]
 > The main disadvantage of this method is that there may be a delay before recording starts since we need to wait for Shizuku to start. Depending on your device and Shizuku, this can take anywhere from 1 to 20+ seconds. In my tests, it is generally very fast, and **the security advantages, in my eyes, outweigh the few seconds of delay** at the start of the call.
 
-To enable this behavior in ShizuCallRecorder, go to the **Security** section and enable **Manage Shizuku**.  
+To enable this behavior in CallReel, go to the **Security** section and enable **Manage Shizuku**.  
 
-You will then need to open the Shizuku application, find the **auth key for intents**, and copy it back into ShizuCallRecorder.  
+You will then need to open the Shizuku application, find the **auth key for intents**, and copy it back into CallReel.  
 
 > This step is required so that the app can control Shizuku on your behalf.
 
@@ -74,12 +74,9 @@ When this option is enabled, the application will behave as follows:
 >[!WARNING]
 > As mentioned earlier, recording may take a few seconds because Shizuku needs to start. If you enable **Start only when recording**, be aware that the audio will **not be recorded immediately** when you press the button as we would first need to wait for Shizuku to start.
 
-## Video call recording (ShizuVideoCallRecorder fork)
+## Video call recording
 
-> [!NOTE]
-> This section describes a feature of the **ShizuVideoCallRecorder fork**. It does not exist in the original ShizuCallRecorder.
-
-The fork can also record the video of a video call, for example a WhatsApp video call. It needs **Android 14 or more recent**; on older versions the setting is hidden.
+CallReel can also record the video of a video call, for example a WhatsApp video call. It needs **Android 14 or more recent**; on older versions the setting is hidden.
 
 1. Use the **InCallService** call detection method and enable **Record third-party apps**, as apps like WhatsApp are third-party apps.
 2. In **Settings**, under **Recording**, enable **Record video on video calls**.
@@ -96,5 +93,6 @@ You can also start and stop it by hand with the **Record video** / **Stop video*
 - **The whole screen is recorded**, exactly as you see it. If you open another app during the call, that app is recorded too, including notifications that pop up.
 - Screens that an app marks as secure are recorded as black.
 - If you rotate the phone during the call, the picture is letterboxed. The video size is chosen when the video starts.
+- While nothing on the screen changes, no new video frames are recorded. The last picture stays until something changes.
 - The video only starts while the call is being recorded. If the recording is in standby, start the recording first.
 - The same laws that apply to recording a call apply to recording its video. Make sure you are allowed to record.

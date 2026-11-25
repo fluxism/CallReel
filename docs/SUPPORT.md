@@ -1,17 +1,20 @@
-# Getting Started
-Welcome to the main page of the documentation. (SUPPORT.md)
+# CallReel documentation
 
-This guide contains installation, configuration, and support informations.
+This is the main page of the documentation. It covers installation, configuration and troubleshooting.
 
-Please note that ShizuCallRecorder is a free, FOSS, project. It may work, but it may also not (you should look at existing issues and make a detailed issue if none exists!)
-You can learn more about the origins of this project [here](./introduction.md).
+> [!NOTE]
+> CallReel is a fork of ShizuCallRecorder, available at https://github.com/kitsumed/ShizuCallRecorder. Most of these guides were written by the original author for the original app and were adapted for CallReel. Where a guide says "I", it is the original author speaking.
 
-## Installation / Configuration
-If you are new to ShizuCallRecorder, please check the [configuration documentation](./configuration.md).
+CallReel is a free and open source project. It may work on your device, and it may not. If it does not, look at the [existing issues](https://github.com/fluxism/CallReel/issues) and open a detailed one if none matches.
+
+## Installation and configuration
+If you are new to CallReel, start with the [configuration guide](./configuration.md). Video call recording has its own [section](./configuration.md#video-call-recording).
 
 >[!TIP]
-> This application only saves recording files. If you would like a visual interface to browse the files and see your contact names, you can use an application like [bcr-gui](https://github.com/nicorac/bcr-gui) (unrelated to this project). I made ShizuCallRecorder in a way that it replicates the [BCR](https://github.com/chenxiaolong/BCR) file name format. **I will not add a visual interface, I want to keep the app relatively simple**.
+> This application only saves recording files. If you would like a visual interface to browse the files and see your contact names, you can use an application like [bcr-gui](https://github.com/nicorac/bcr-gui) (unrelated to this project). File names follow the [BCR](https://github.com/chenxiaolong/BCR) file name format.
 
 ## Troubleshooting
+Frequent issues and questions are answered in the [troubleshooting guides](./troubleshooting.md).
 
-Please check the troubleshooting documentation with frequents issues and questions. You can find it in the [`/docs/troubleshooting`](./troubleshooting.md) directory on Github, or via our [website](https://kitsumed.github.io/ShizuCallRecorder/troubleshooting).
+## Background
+[Why the original project was started](./introduction.md), told by its author.

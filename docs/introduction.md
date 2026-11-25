@@ -1,7 +1,8 @@
----
-description: Why ShizuCallRecorder was created. How Android restricted third-party call recording, why proprietary apps fall short, and how we solve it with ADB.
----
 # Introduction
+
+> [!NOTE]
+> This page was written by kitsumed (Med), the author of ShizuCallRecorder, about the original project. CallReel is a fork of it and keeps the page unchanged, as background. "I" is the original author.
+
 ## Why was this project originally started?
 Ever release of Android 4.4 KitKat (API 19) / Android 6, native 3rd-party phone call recording apps have been [killed](https://issuetracker.google.com/issues/37127141) for valid [privacy](https://issuetracker.google.com/issues/137210607#comment8) reasons, with
 no [visible effort](https://issuetracker.google.com/issues/128677410) from Android/Google in the following years to provide developers with [any compromises or runtime permissions](https://issuetracker.google.com/issues/112602629). In fact, in the following years, they kept closing work-around developers had founds to bypass the restrictions.

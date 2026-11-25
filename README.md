@@ -1,126 +1,131 @@
-# ShizuVideoCallRecorder
+<p align="center">
+  <img src="fastlane/metadata/android/en-US/images/icon.png" width="112" alt="CallReel icon">
+</p>
+
+# CallReel
+
+**Record phone calls, and the video of video calls, on a non-rooted Android phone.** Free and open source, powered by [Shizuku](https://github.com/thedjchi/Shizuku).
 
 > [!IMPORTANT]
-> **This is a FORK.** This software is a fork of ShizuCallRecorder, available at https://github.com/kitsumed/ShizuCallRecorder.
-> It is not the original project and is not affiliated with or endorsed by its author. It adds **video call recording**:
-> when a recorded call is a video call, the screen is also recorded into an MP4 file next to the audio file.
-> It installs under its own package ID (`com.fluxism.shizuvideocallrecorder`). The badges, download links, documentation
-> and the rest of this README below come from the original project and describe it.
+> **CallReel is a FORK.** This software is a fork of ShizuCallRecorder, available at https://github.com/kitsumed/ShizuCallRecorder.
+>
+> The call recording engine, the app and most of the documentation are the work of **[kitsumed (Med)](https://github.com/kitsumed)**, the original author. CallReel is maintained separately by [fluxism](https://github.com/fluxism). It is not the original project and is not affiliated with or endorsed by its author.
+>
+> If you only need audio call recording, use the original. Please report CallReel problems [here](https://github.com/fluxism/CallReel/issues), not to the original project.
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/kitsumed/ShizuCallRecorder?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI%2BPHRpdGxlPnN0YXI8L3RpdGxlPjxwYXRoIGQ9Ik0xMiwxNy4yN0wxOC4xOCwyMUwxNi41NCwxMy45N0wyMiw5LjI0TDE0LjgxLDguNjJMMTIsMkw5LjE5LDguNjJMMiw5LjI0TDcuNDUsMTMuOTdMNS44MiwyMUwxMiwxNy4yN1oiIGZpbGw9IndoaXRlIiAvPjwvc3ZnPg%3D%3D&labelColor=gray&color=gold)](https://github.com/kitsumed/ShizuCallRecorder/graphs/traffic)
-[![Download ShizuCallRecorder on Github - All Downloads Stats](https://img.shields.io/github/downloads/kitsumed/ShizuCallRecorder/total?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI%2BPHRpdGxlPmRvd25sb2FkPC90aXRsZT48cGF0aCBkPSJNNSwyMEgxOVYxOEg1TTE5LDlIMTVWM0g5VjlINUwxMiwxNkwxOSw5WiIgZmlsbD0id2hpdGUiIC8%2BPC9zdmc%2B&label=Downloads&labelColor=gray&color=gold&)](https://github.com/kitsumed/ShizuCallRecorder/releases/)
-[![GitHub Release](https://img.shields.io/github/v/release/kitsumed/ShizuCallRecorder?sort=semver&display_name=tag&style=for-the-badge&logo=testcafe&logoColor=white&label=Latest%20Release&labelColor=gray&color=blue)](https://github.com/kitsumed/ShizuCallRecorder/releases/latest)
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/kitsumed/ShizuCallRecorder/build-app.yml?style=for-the-badge&label=Build%20Workflow)](https://github.com/kitsumed/ShizuCallRecorder/actions/workflows/build-app.yml)
+## What CallReel adds
 
-[![Download ShizuCallRecorder on F-Droid - All Time Downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgithub.com%2Fkitswas%2Ffdroid-metrics-dashboard%2Fraw%2Frefs%2Fheads%2Fmain%2Fprocessed%2Ftotal%2Fcom.kitsumed.shizucallrecorder.json&query=%24.total_downloads&logo=fdroid&label=Downloads%20(F-Droid)&color=gold&style=for-the-badge
-)](https://f-droid.org/packages/com.kitsumed.shizucallrecorder/)
-[![Download ShizuCallRecorder on IzzyOnDroid - Yearly Downloads](https://img.shields.io/badge/dynamic/json?url=https://dlstats.izzyondroid.org/iod-stats-collector/stats/basic/yearly/rolling.json&query=$.['com.kitsumed.shizucallrecorder']&logo=android&style=for-the-badge&label=Yearly%20downloads%20(IzzyOnDroid)&color=gold)](https://apt.izzysoft.de/packages/com.kitsumed.shizucallrecorder)
+| | ShizuCallRecorder (original) | CallReel (this fork) |
+|---|---|---|
+| Audio call recording | Yes | Yes, same engine |
+| Video of video calls (WhatsApp and similar apps) | No | **Yes**, on Android 14+ |
+| Package ID | `com.kitsumed.shizucallrecorder` | `com.fluxism.callreel` |
+| Can be installed next to the other | Yes | Yes |
 
-The first **non-root FOSS call recorder app for Android 11+**! ShizuCallRecorder empowers ADB through Shizuku to use an [advanced list of permissions given to the shell application](https://cs.android.com/search?q=com.android.shell%20file:%2Fpackages%2FShell%2FAndroidManifest.xml). It is free, without ads, respect your privacy, and try to apply the best security practices.
-
-> [!TIP]
-> **Official Resources:** [Troubleshooting Guide](https://kitsumed.github.io/ShizuCallRecorder/troubleshooting) | [Project Creation History](https://kitsumed.github.io/ShizuCallRecorder/introduction)
-
-
-**This app main focus are Cellular/VoLTE calls, however, we do attempt to support Wifi-Calling and VoIP when possible**. Third-party app support ***is not guaranteed***, they may work provided they use Android Telecom.
+Everything else follows the original project, whose changes are merged into CallReel from time to time.
 
 ## Features
 
-- Records **both sides of phone calls** (incoming and outgoing)
-    - Should work even when using Bluetooth or a remote headset
+- **Video call recording** (Android 14+): when a recorded call is a video call, the screen is recorded with the call audio into an `.mp4` file next to the audio file
+    - Starts by itself when Android reports the call as a video call, or when a camera turns on during a call from a third-party app
+    - A **Record video** / **Stop video** button on the recording notification gives manual control
+    - Off by default. The audio file is written exactly as without it
+- Records **both sides of phone calls** (incoming and outgoing), also with Bluetooth or a headset
 - **Separate uplink and downlink audio** inside a stereo recording
-- **(Fork) Video call recording** on Android 14+: records the screen with the call audio into an MP4 next to the audio file
-    - Starts by itself when the call is reported as a video call or a camera turns on, or from a button on the notification
-    - Records everything shown on the screen, including other apps. Off by default
-- **Cellular/VoLTE capture**, with **best-effort support for *VoIP*** (and third-party apps) ***starting* Android 14+**
-- **Security** toggles to **manage Shizuku on/off state**
-    - An attempt to reduce the potential attack surface introduced by Shizuku
-    - Helps with apps that detect / yells at you when USB Debugging or Shizuku is enabled
-- **Automatic call recording** option with basic **exclusion rules**:
-    - Ignore anonymous calls
-    - Ignore specific contacts
-    - Ignore all contacts
-- Multiple codecs available: **Opus**, **AAC**, **HE-AAC-v1**, and more!
-- The app runs only on phone event changes, no persistent background process and notifications
+- **Cellular/VoLTE capture**, with best-effort support for VoIP and third-party apps starting with Android 14
+- **Security** toggles that start Shizuku only when it is needed
+- **Automatic call recording** with exclusion rules (anonymous calls, specific contacts, all contacts)
+- Several audio codecs: **Opus**, **AAC**, **HE-AAC-v1** and more
+- Runs only when a call happens: no persistent background process
 
 ## Requirements
-- **Android 11** or more recent.
-    - **Look at the *Android Tested Versions* table** for more informations on limitations.
-- Shizuku (we recommend [thedjchi fork](https://github.com/thedjchi/Shizuku)) (currently looking for a new fork, [help us](https://github.com/kitsumed/ShizuCallRecorder/issues/155#issuecomment-6906024760)!)
 
-<details>
-<summary><b>Android Tested Versions</b></summary>
-<b>I cannot extensively test all of these versions, so issues may arise. This table may change as more testing by other users is done.</b>
-    
-| Android Version | Supported | Note                                  |
-|-----------------|-----------|---------------------------------------|
-| 11              |**Limited**|**[Need Unlocked Screen](https://github.com/Genymobile/scrcpy/blob/3fcc177da5b6b4514d0e8e8d90d7d58d6731eac9/server/src/main/java/com/genymobile/scrcpy/audio/AudioDirectCapture.java#L56-L68)**, ⚠️No VoIP Support|
-| 12              | **Basic** |  ⚠️No VoIP Support  (Pixel may work) |
-| 13              | **Basic** |  ⚠️No VoIP Support  (Pixel may work) |   
-| 14              | Yes       |                                      |
-| 15              | Yes       |                                      |
-| 16              | Yes       |                                      |
-| 17              | Yes       |                                      |
+- **Android 11** or more recent for audio recording. **Android 14** or more recent for video recording and for third-party apps such as WhatsApp.
+- [Shizuku](https://github.com/thedjchi/Shizuku).
 
-</details>
+Audio recording behaves as in the original project, so its compatibility notes apply:
 
-> [!IMPORTANT]  
-> This application makes use of hidden internal Android APIs. As such, it is prone to breaking in new Android releases or due to specific OEM modifications to the source code.
+| Android version | Audio recording | Note |
+|-----------------|-----------------|------|
+| 11              | Limited | Needs an unlocked screen. No VoIP support |
+| 12 and 13       | Basic   | No VoIP support (Pixel devices may work) |
+| 14 to 17        | Yes     | |
+
+Video recording has been tested on a Pixel running Android 17 with WhatsApp video calls. Other devices and apps may behave differently.
+
+> [!IMPORTANT]
+> This application uses hidden internal Android APIs. It can break with a new Android release or with changes made by a device manufacturer.
+
+## Video recording: what to expect
+
+- **The whole screen is recorded**, exactly as you see it. If you open another app during the call, that app and any notification that pops up are recorded too.
+- Windows that an app marks as secure are recorded as black.
+- The video is H.264 at up to 1280 pixels on the long side, 30 frames per second, about 15 MB per minute.
+- The video size is chosen when the video starts. If you rotate the phone during the call, the picture is letterboxed.
+- The video only starts while the call is being recorded.
+
+See [Video call recording](docs/configuration.md#video-call-recording) for the setup.
 
 ## Installation
 
-**Please follow the installation and configuration instructions in the our [documentation](https://kitsumed.github.io/ShizuCallRecorder/configuration)** under **Installation & Configuration**. 
+1. Install and set up Shizuku.
+2. Download the latest CallReel APK from [Releases](https://github.com/fluxism/CallReel/releases/latest) and install it.
+3. Follow the [configuration guide](docs/configuration.md).
 
-You can download the latest version [here](https://github.com/kitsumed/ShizuCallRecorder/releases/latest).
+All documentation is in [`docs/`](docs/SUPPORT.md).
+
+## Building from source
+
+The repository does not contain the Gradle wrapper scripts. With Gradle 9.8.2 and JDK 17 or more recent:
+
+```sh
+gradle wrapper
+./gradlew assembleDebug        # debug APK
+./gradlew testDebugUnitTest    # unit tests
+```
+
+Release APKs are built and signed by the [Build App](.github/workflows/build-app.yml) workflow.
 
 ## Contributing
 
-Please see the [contributing](./CONTRIBUTING.md) guide.
+See [CONTRIBUTING.md](CONTRIBUTING.md). A change that is not about video recording usually belongs in the original project, where both apps benefit from it.
 
-<details>
-  <summary><strong>Translation hosting generously provided by <a href="https://hosted.weblate.org/engage/shizucallrecorder/">Weblate</a></strong>.</summary>
-  <p align="left">
-    <p><strong>NOTE:</strong> By default, Weblate will use your account creation email when making commits to GitHub (to give you credits). This would leak your email address, you can change this behavior in your account settings.</p>
-    <a href="https://hosted.weblate.org/engage/shizucallrecorder/">
-      <img src="https://hosted.weblate.org/widget/shizucallrecorder/horizontal-auto.svg" alt="Traduction Stats">
-    </a>
-  </p>
-</details>
+## Credits
+
+- **[kitsumed (Med)](https://github.com/kitsumed)** created ShizuCallRecorder, which CallReel is built on. If CallReel is useful to you, consider [supporting the original author](https://github.com/sponsors/kitsumed) and [starring the original project](https://github.com/kitsumed/ShizuCallRecorder).
+- The translations come from the contributors of the original project. Texts added by CallReel are in English only for now.
+- [scrcpy](https://github.com/Genymobile/scrcpy) showed how to capture audio and mirror the screen from the shell user.
+- [Shizuku](https://github.com/thedjchi/Shizuku) makes running code as the shell user possible without root.
 
 ## License
-The software is licensed under the [GNU General Public License, version 3 (GPL-3.0)](LICENSE). ⚠️ **Additional terms** under GNU GPL version 3 Section 7 are at the end of the file.
- - This License does not grant any rights in the trademarks, service marks, or logos of any Contributor.
- - *As example, the name "`ShizuCallRecorder`" and `com.kitsumed.shizucallrecorder` are the property of the copyright holder **kitsumed***.
 
-I decided to use the **GPL-3.0** license, as no other open-source/FOSS call recording app for non-rooted devices on Android 11+ exists yet, and I want to ensure that any potential future alternatives derived from this project remain FOSS.
+CallReel is licensed under the [GNU General Public License, version 3 (GPL-3.0)](LICENSE), with the **additional terms** of the original project under GPL version 3 section 7. They are at the end of the [LICENSE](LICENSE) file and they also apply to forks of CallReel.
+
+- Copyright (C) 2026 kitsumed (Med), original work
+- Copyright (C) 2026 fluxism, CallReel modifications
+
+The license grants no rights in trademarks or logos. The name "ShizuCallRecorder", its logo and `com.kitsumed.shizucallrecorder` belong to kitsumed. CallReel uses its own name, icon and package ID, as those terms require of a fork. If you fork CallReel, choose your own as well.
 
 ## Disclaimer
-**Recording phone calls may be subject to complex and varying laws in different countries and jurisdictions.** For example, you may need to **ensure you have consent** from all parties before recording conversations. The **developers and contributors are not responsible** for any misuse or legal consequences arising from the use of this application.
-You can **learn more on Wikipedia at**: [Telephone call recording laws](https://en.wikipedia.org/wiki/Telephone_call_recording_laws).
 
-**If you are legally required to inform or ask someone for consent before recording**, please note that the application **DOES NOT handle this for you**.
-In some cases, certain features, like automatic call recording, may not be legally allowed. It is your responsibility to ensure compliance with applicable laws. **This is not legal advice**. Please **consult a legal professional for guidance** regarding your specific situation.
+**Recording phone calls and video calls may be subject to complex and varying laws in different countries and jurisdictions.** For example, you may need to **ensure you have consent** from all parties before recording. A video recording also captures the image of the other party and everything shown on your screen. The **developers and contributors are not responsible** for any misuse or legal consequences arising from the use of this application.
+You can learn more on Wikipedia: [Telephone call recording laws](https://en.wikipedia.org/wiki/Telephone_call_recording_laws).
+
+**If you are legally required to inform or ask someone for consent before recording**, please note that the application **DOES NOT handle this for you**. In some cases, certain features, like automatic call recording, may not be legally allowed. It is your responsibility to ensure compliance with applicable laws. **This is not legal advice.** Please consult a legal professional about your specific situation.
 
 > [!CAUTION]
-> Due to the evolving Android ecosystem and varying hardware (OEMs), this software is subject to **non-deterministic behavior**. Expand below for specific limitations and user responsibilities.
+> Because of the evolving Android ecosystem and varying hardware, this software is subject to **non-deterministic behavior**.
 
 <details>
-<summary><b>Application Behavior & User Awareness Details</b></summary>
-    
-### **APPLICATION BEHAVIOR**
-* **Concurrent Calls:** The app may fail to detect transitions (e.g., while in a call, a second incoming call arrives, or switching between held calls). In these scenarios, the application may **continue to record audio into a single continuous file** without separate notifications or new notifications prompts for subsequent callers.
-* **Filter Logic Limitations**: **Due to Android privacy-driven restrictions on real-time phone number access**, the app may relies, depending on the call detection mode, on fetching deprecated or unstable values. Theses initial check could be used to decide whether to automatically record based on your settings. **In cases where we receive the value too late, receive invalid data, or receive no data, the application is likely to consider the call as "anonymous" in its decision process**.
-* **Unforeseen Failures:** Future OS updates, bugs, design choices in the app, or undocumented system behaviors may cause the app to start and/or continue recording, or fail, in a unexpected manner.
+<summary><b>Application behavior and user awareness</b></summary>
 
-### **USER AWARENESS**
-Because deterministic behavior of the application cannot be guaranteed, it is your responsibility to:
-1. Ensure the recording behavior and your application settings aligns with your intent and the specific requirements in your jurisdiction.
-2. **Monitor the app's behavior** on your specific device. If you observe any behavior that does not comply with your local laws, you **must immediately cease any activity that constitutes a legal infraction** (For example, hanging up the call, deleting the audio files, etc).
+### Application behavior
+* **Concurrent calls:** the app may fail to detect transitions, for example a second incoming call during a call, or switching between held calls. It may then **continue to record into a single continuous file** without a new notification for the later caller.
+* **Filter logic limitations:** because Android restricts real-time access to phone numbers, the app may rely on deprecated or unstable values to decide whether to record automatically. When a value arrives too late, is invalid or is missing, the app is likely to treat the call as "anonymous" when it decides.
+* **Unforeseen failures:** future OS updates, bugs, design choices in the app or undocumented system behavior may cause the app to start, continue or fail to record in an unexpected manner.
+
+### User awareness
+Because deterministic behavior cannot be guaranteed, it is your responsibility to:
+1. Ensure the recording behavior and your settings match your intent and the requirements of your jurisdiction.
+2. **Monitor the app's behavior** on your device. If you observe behavior that does not comply with your local laws, you **must immediately stop the activity that constitutes an infraction** (for example by hanging up, or by deleting the files).
 </details>
-
-## Star History
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=kitsumed/ShizuCallRecorder&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=kitsumed/ShizuCallRecorder&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=kitsumed/ShizuCallRecorder&type=date&legend=top-left" />
- </picture>

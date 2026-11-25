@@ -1,11 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Troubleshooting Guide and FAQ
-    url: https://kitsumed.github.io/ShizuCallRecorder/troubleshooting
-    about: Maintainers responses and guides to common issues and questions.
-  - name: Community Support for ShizuCallRecorder
-    url: https://github.com/kitsumed/ShizuCallRecorder/discussions
-    about: Please ask and answer other users questions here. THIS IS NOT FOR BUG REPORTS.
+  - name: Troubleshooting guides
+    url: https://github.com/fluxism/CallReel/blob/main/docs/troubleshooting.md
+    about: Answers to common issues and questions. Please read them first.
   - name: Community Support for Shizuku (thedjchi fork)
     url: https://github.com/thedjchi/Shizuku/discussions/categories/q-a
-    about: Please ask and answer other users questions here. THIS IS NOT FOR BUG REPORTS.
+    about: Questions about Shizuku itself belong there. THIS IS NOT FOR BUG REPORTS.

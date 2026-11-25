@@ -1,5 +1,7 @@
 # Video Call Recording Implementation Plan
 
+> Historical document. The fork was later renamed from ShizuVideoCallRecorder to **CallReel** (`com.fluxism.callreel`, repository `fluxism/CallReel`), and the video bitrate was lowered to 2 Mbit/s.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Record the screen as an MP4 (H.264 + AAC) next to the unchanged audio file whenever a recorded call is a video call.
