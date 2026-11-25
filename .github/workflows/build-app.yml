@@ -214,9 +214,12 @@ jobs:
           
           # Create the draft release with the APK attached
           # --draft: Release is not published until manually approved
+          # --target: The tag is only created when the draft is published. Pin it to the commit this
+          #           workflow built, so a later push to the branch cannot move the release to other code.
           # --generate-notes: Auto-generate release notes from commits
           gh release create "v${RELEASE_VERSION}" \
             --draft \
+            --target "${GITHUB_SHA}" \
             --title "v${RELEASE_VERSION}" \
             --generate-notes \
             $PRERELEASE_FLAG \

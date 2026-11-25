@@ -62,7 +62,7 @@ android {
 
     defaultConfig {
         // FORK: the upstream licence (additional term 3) requires a different package ID. The code namespace is unchanged.
-        applicationId = "com.fluxism.callreel"
+        applicationId = "io.github.fluxism.callreel"
         minSdk = 30
         targetSdk = 37
         // Keep theses two values hard-coded here and update them per version. (To keep F-Droid compatibility since their parser is very basic)

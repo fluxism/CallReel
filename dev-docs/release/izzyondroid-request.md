@@ -3,7 +3,7 @@
 **Title:** [RFP] CallReel
 
 - **App name:** CallReel
-- **Package ID:** com.fluxism.callreel
+- **Package ID:** io.github.fluxism.callreel
 - **Source code:** https://github.com/fluxism/CallReel
 - **License:** GPL-3.0-or-later, with additional terms under section 7 (at the end of the LICENSE file)
 - **APK source:** GitHub releases, `CallReel-<version>.apk`, signed and attested by the repository's workflow

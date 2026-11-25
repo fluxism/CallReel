@@ -1,6 +1,6 @@
 # Video call recording: design
 
-> Historical document. The fork was later renamed from ShizuVideoCallRecorder to **CallReel** (`com.fluxism.callreel`, repository `fluxism/CallReel`), and the video bitrate was lowered to 2 Mbit/s.
+> Historical document. The fork was later renamed from ShizuVideoCallRecorder to **CallReel** (`io.github.fluxism.callreel`, repository `fluxism/CallReel`), and the video bitrate was lowered to 2 Mbit/s.
 
 Date: 2026-11-21
 Branch: `feature/video-call-recording`

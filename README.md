@@ -19,7 +19,7 @@
 |---|---|---|
 | Audio call recording | Yes | Yes, same engine |
 | Video of video calls (WhatsApp and similar apps) | No | **Yes**, on Android 14+ |
-| Package ID | `com.kitsumed.shizucallrecorder` | `com.fluxism.callreel` |
+| Package ID | `com.kitsumed.shizucallrecorder` | `io.github.fluxism.callreel` |
 | Can be installed next to the other | Yes | Yes |
 
 Everything else follows the original project, whose changes are merged into CallReel from time to time.

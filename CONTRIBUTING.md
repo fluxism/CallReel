@@ -33,7 +33,7 @@ gradle wrapper
 The video pipeline can be tested on a device without a call. With the debug build installed, run as the shell user:
 
 ```sh
-adb shell 'CLASSPATH=$(pm path com.fluxism.callreel | cut -d: -f2) app_process / com.kitsumed.shizucallrecorder.debug.VideoSelfTest /data/local/tmp/selftest.mp4 6'
+adb shell 'CLASSPATH=$(pm path io.github.fluxism.callreel | cut -d: -f2) app_process / com.kitsumed.shizucallrecorder.debug.VideoSelfTest /data/local/tmp/selftest.mp4 6'
 adb pull /data/local/tmp/selftest.mp4
 ```
 
@@ -41,7 +41,7 @@ It records the screen for 6 seconds with a test tone and prints whether the file
 
 ## Why the code is still in `com.kitsumed.shizucallrecorder`
 
-Only the application ID was changed (`com.fluxism.callreel`). The Kotlin package and the original file headers are kept, so that changes from the original project merge cleanly and its author's copyright notices stay intact.
+Only the application ID was changed (`io.github.fluxism.callreel`). The Kotlin package and the original file headers are kept, so that changes from the original project merge cleanly and its author's copyright notices stay intact.
 
 ## Translations
 
