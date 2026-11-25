@@ -17,7 +17,7 @@ Binaries: https://github.com/fluxism/CallReel/releases/download/v%v/CallReel-%v.
 Builds:
   - versionName: 1.0.0
     versionCode: 1
-    commit: COMMIT_OF_V1.0.0
+    commit: 6e1e8eaf3b54727710ebdacaeb286eae8d7834b3
     subdir: app
     gradle:
       - yes
